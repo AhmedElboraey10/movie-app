@@ -14,7 +14,12 @@ export const SearchResultsPage = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const visiblePages = Array.from({ length: Math.min(totalPages, 5) }, (_, index) => index + 1);
+    const pageStart = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
+    const visiblePages = Array.from(
+        { length: Math.min(totalPages, 5) },
+        (_, index) => pageStart + index,
+    );
+    const pageEnd = pageStart + visiblePages.length - 1;
 
     useEffect(() => {
         if (!query.trim()) {
@@ -114,6 +119,20 @@ export const SearchResultsPage = () => {
                                     >
                                         &lt;
                                     </button>
+                                    {pageStart > 1 && (
+                                        <>
+                                            <button
+                                                type="button"
+                                                className="flex h-8 min-w-8 items-center justify-center rounded-md border-0 bg-transparent px-1.5 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100"
+                                                onClick={() => handlePageChange(1)}
+                                            >
+                                                1
+                                            </button>
+                                            {pageStart > 2 && (
+                                                <span className="px-1 text-gray-500">...</span>
+                                            )}
+                                        </>
+                                    )}
                                     {visiblePages.map((pageNum) => (
                                         <button
                                             key={pageNum}
@@ -124,8 +143,19 @@ export const SearchResultsPage = () => {
                                             {pageNum}
                                         </button>
                                     ))}
-                                    {totalPages > 5 && (
-                                        <span className="px-1 text-gray-500">....</span>
+                                    {pageEnd < totalPages && (
+                                        <>
+                                            {pageEnd < totalPages - 1 && (
+                                                <span className="px-1 text-gray-500">...</span>
+                                            )}
+                                            <button
+                                                type="button"
+                                                className="flex h-8 min-w-8 items-center justify-center rounded-md border-0 bg-transparent px-1.5 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100"
+                                                onClick={() => handlePageChange(totalPages)}
+                                            >
+                                                {totalPages}
+                                            </button>
+                                        </>
                                     )}
                                     <button
                                         type="button"
