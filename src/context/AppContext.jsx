@@ -1,10 +1,6 @@
-import { createContext, useContext, useState } from 'react';
-import { useWatchlist } from './WatchlistContext';
-
-/* Context modules intentionally export both their provider and consumer hook. */
-/* eslint-disable react-refresh/only-export-components */
-
-const AppContext = createContext();
+import { useState } from 'react';
+import { useWatchlist } from '../hooks/useWatchlist';
+import { AppContext } from './appContextValue';
 
 export const AppProvider = ({ children }) => {
     const { watchlist, setWatchlist, toggleWatchlist, isInWatchlist } = useWatchlist();
@@ -30,12 +26,4 @@ export const AppProvider = ({ children }) => {
             {children}
         </AppContext.Provider>
     );
-};
-
-export const useApp = () => {
-    const context = useContext(AppContext);
-    if (!context) {
-        throw new Error('useApp must be used within an AppProvider');
-    }
-    return context;
 };

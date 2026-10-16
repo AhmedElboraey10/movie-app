@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../hooks/useApp';
 
 export const Header = () => {
     const { watchlist } = useApp();

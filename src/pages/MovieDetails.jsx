@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../hooks/useApp';
 import { MovieCard } from '../components/MovieCard';
 import { getMovieDetails, getMovieRecommendations } from '../services/tmdbService';
 

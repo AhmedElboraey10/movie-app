@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../hooks/useApp';
 
 const fallbackPoster = 'https://placehold.co/300x450/e5e7eb/6b7280?text=No+Poster';
 

@@ -1,4 +1,4 @@
-import { useWatchlist } from '../context/WatchlistContext';
+import { useWatchlist } from '../hooks/useWatchlist';
 import { MovieCard } from '../components/MovieCard';
 import { Link } from 'react-router-dom';
 import { HeartCrack } from 'lucide-react';

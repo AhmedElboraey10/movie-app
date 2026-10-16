@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import { useWatchlist } from '../context/WatchlistContext';
+import { useWatchlist } from '../hooks/useWatchlist';
 
 function Navbar() {
     const { count } = useWatchlist();
