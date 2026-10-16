@@ -15,6 +15,25 @@ const formatDate = (dateStr) => {
     });
 };
 
+const MovieRating = ({ movie }) => {
+    if (!movie.vote_count) return null;
+
+    const rating = Math.round(movie.vote_average * 10);
+
+    return (
+        <span
+            role="img"
+            aria-label={`TMDB rating ${rating}%`}
+            className="absolute bottom-2 left-2 z-10 grid size-8 place-items-center rounded-full p-0.5 shadow-md"
+            style={{ background: `conic-gradient(#00dc89 ${rating}%, #3f4b53 0)` }}
+        >
+            <span className="grid size-full place-items-center rounded-full bg-[#101820] text-[9px] font-extrabold leading-none text-white">
+                {rating}%
+            </span>
+        </span>
+    );
+};
+
 export const MovieCard = ({ movie, isHorizontal }) => {
     const { toggleWatchlist, isInWatchlist } = useApp();
     const navigate = useNavigate();
@@ -31,7 +50,7 @@ export const MovieCard = ({ movie, isHorizontal }) => {
     if (isHorizontal) {
         return (
             <article className="flex h-56 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md">
-                <Link to={`/movie/${movie.id}`} className="w-40 shrink-0">
+                <Link to={`/movie/${movie.id}`} className="relative w-40 shrink-0">
                     <img
                         src={posterSrc}
                         alt={movie.title || 'Movie poster'}
@@ -41,6 +60,7 @@ export const MovieCard = ({ movie, isHorizontal }) => {
                             event.currentTarget.src = fallbackPoster;
                         }}
                     />
+                    <MovieRating movie={movie} />
                 </Link>
                 <div className="flex min-w-0 flex-1 flex-col p-5">
                     <div className="mb-1.5 flex items-start justify-between gap-3">
@@ -91,6 +111,7 @@ export const MovieCard = ({ movie, isHorizontal }) => {
                         event.currentTarget.src = fallbackPoster;
                     }}
                 />
+                <MovieRating movie={movie} />
                 <button
                     type="button"
                     aria-label={`View details for ${movie.title || 'this movie'}`}
