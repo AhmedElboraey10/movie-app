@@ -1,0 +1,273 @@
+/* ==========================================================
+   MOVIE DETAILS PAGE - SELF CONTAINED FIGMA STYLES
+   ========================================================== */
+
+.movie-details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  background-color: #ffffff;
+  color: #111827;
+  box-sizing: border-box;
+}
+
+.movie-details-hero {
+  display: flex;
+  gap: 48px;
+  background-color: #ffffff;
+  margin-bottom: 32px;
+  align-items: flex-start;
+}
+
+.movie-details-poster-wrap {
+  width: 320px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  background-color: #f3f4f6;
+}
+
+.movie-details-poster {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.movie-details-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.movie-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+}
+
+.movie-details-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.movie-details-date {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+
+/* Large Stars matching Figma */
+.star-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.stars {
+  color: #111827;
+  font-size: 1.65rem;
+  letter-spacing: 4px;
+  line-height: 1;
+}
+
+.vote-number {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.movie-details-overview {
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.genre-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.genre-pill {
+  background-color: #fee135;
+  color: #000000;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 20px;
+  border-radius: 20px;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  font-size: 0.9rem;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+.meta-row strong {
+  font-weight: 700;
+}
+
+.production-logos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.production-logo {
+  max-height: 32px;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+.production-text {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 4px 10px;
+}
+
+.website-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #111827;
+  text-decoration: none;
+  background-color: #ffffff;
+  width: fit-content;
+  transition: all 0.2s ease;
+}
+
+.website-btn:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* Explicit Section Divider */
+.details-divider {
+  border: none;
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 48px 0 40px 0;
+  width: 100%;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+/* Recommendations Grid */
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 20px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.rec-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.rec-poster-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f3f4f6;
+  margin-bottom: 8px;
+}
+
+.rec-poster-wrap img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rec-rating-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  width: 32px;
+  height: 32px;
+  background-color: #0b131e;
+  border: 2px solid #00d25b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.rec-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rec-date {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0;
+}
+
+@media (max-width: 1100px) {
+  .recommendations-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .movie-details-hero {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .movie-details-poster-wrap {
+    width: 240px;
+  }
+
+  .recommendations-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 550px) {
+  .recommendations-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,762 @@
+/* ==========================================================
+   FIGMA PIXEL-PERFECT STYLES - HOME + DETAILS MERGED
+   ========================================================== */
+
+:root {
+  --primary-yellow: #fee135;
+  --primary-yellow-hover: #fcd700;
+  --text-black: #111827;
+  --text-muted: #6b7280;
+  --border-light: #e5e7eb;
+  --bg-hero: #f4f5f7;
+  --badge-green: #00d25b;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: var(--text-black);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 32px;
+  background-color: var(--primary-yellow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.main-header .logo a {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: -0.2px;
+  text-decoration: none;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.lang-select-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.lang-select {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #000000;
+  cursor: pointer;
+  outline: none;
+  padding-right: 4px;
+}
+
+.watchlist-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #000000;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.watchlist-header-heart {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+}
+
+.watchlist-link .badge {
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  margin-left: 2px;
+}
+
+/* ==========================================================
+   HOME HERO SECTION & SEARCH BAR (Figma Match)
+   ========================================================== */
+.hero-section {
+  background-color: var(--bg-hero);
+  border-radius: 12px;
+  padding: 40px 32px;
+  margin-bottom: 32px;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.hero-section h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-black);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.3px;
+}
+
+.hero-section p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0 0 24px 0;
+}
+
+.search-bar {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-bar.standalone {
+  margin: 0 0 36px 0;
+}
+
+.search-bar input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  outline: none;
+  background-color: #ffffff;
+  color: var(--text-black);
+  box-sizing: border-box;
+}
+
+.search-bar input:focus {
+  border-color: #9ca3af;
+}
+
+.search-bar button {
+  flex-shrink: 0;
+  padding: 12px 36px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  background-color: var(--primary-yellow);
+  color: #000000;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-bar button:hover {
+  background-color: var(--primary-yellow-hover);
+}
+
+/* ==========================================================
+   SEARCH RESULTS HEADER & SPACING
+   ========================================================== */
+.search-results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.search-results-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-black);
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+
+.back-home-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #000000;
+  background-color: var(--primary-yellow);
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.back-home-link-btn:hover {
+  background-color: var(--primary-yellow-hover);
+}
+
+/* ==========================================================
+   SECTION TITLE
+   ========================================================== */
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-black);
+  margin: 0 0 20px 0;
+  letter-spacing: -0.2px;
+}
+
+/* ==========================================================
+   UNIFORM 6-COLUMN GRID (Figma Match)
+   ========================================================== */
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 24px 16px;
+  width: 100%;
+  margin-bottom: 40px;
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   MOVIE CARD - STRICT UNIFORM DIMENSIONS & HOVER EFFECT
+   ========================================================== */
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  box-sizing: border-box;
+  transition: transform 0.25s ease;
+}
+
+.poster-link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
+
+.poster-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #e5e7eb;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.poster-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Dynamic Smooth Card Hover Effect */
+.movie-card:hover .poster-container {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+.movie-card:hover .poster-container img {
+  transform: scale(1.06);
+}
+
+/* Top-Right Three Dots Menu */
+.more-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  z-index: 2;
+}
+
+/* Circular Rating Badge overlapping poster bottom-left */
+.rating-badge-circle {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  width: 32px;
+  height: 32px;
+  background-color: #0b131e;
+  border: 2px solid var(--badge-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.movie-title-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.movie-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-black);
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+  width: 100%;
+}
+
+.movie-title:hover {
+  color: #000000;
+}
+
+.card-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 20px;
+}
+
+.release-date {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.heart-toggle-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.heart-toggle-btn:hover {
+  transform: scale(1.15);
+}
+
+/* ==========================================================
+   PAGINATION (Centered from Figma)
+   ========================================================== */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 32px 0 20px 0;
+  width: 100%;
+}
+
+.page-btn {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-black);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.page-btn:hover:not(.active):not(:disabled) {
+  background-color: #f3f4f6;
+}
+
+.page-btn.active {
+  background-color: var(--primary-yellow);
+  font-weight: 700;
+}
+
+.page-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ==========================================================
+   CHATBOT PAGE
+   ========================================================== */
+.chatbot-page {
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+
+.assistant-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.assistant-header-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
+.chatbot-shell {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 210px);
+  min-height: 460px;
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+  overflow: hidden;
+}
+
+.chatbot-messages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+}
+
+.chatbot-message {
+  max-width: min(78%, 700px);
+  padding: 10px 14px;
+  border-radius: 14px;
+  line-height: 1.45;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+.chatbot-message p {
+  margin: 0;
+}
+
+.chatbot-message p + p,
+.chatbot-message p + ul,
+.chatbot-message p + ol,
+.chatbot-message p + pre,
+.chatbot-message p + blockquote,
+.chatbot-message ul + p,
+.chatbot-message ol + p {
+  margin-top: 8px;
+}
+
+.chatbot-message ul,
+.chatbot-message ol {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+.chatbot-message li + li {
+  margin-top: 4px;
+}
+
+.chatbot-message h1,
+.chatbot-message h2,
+.chatbot-message h3,
+.chatbot-message h4 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.chatbot-message h1 + p,
+.chatbot-message h2 + p,
+.chatbot-message h3 + p,
+.chatbot-message h4 + p {
+  margin-top: 8px;
+}
+
+.chatbot-message pre {
+  margin: 8px 0 0;
+  background: #111827;
+  color: #f9fafb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  overflow-x: auto;
+}
+
+.chatbot-message code {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+  font-size: 0.85em;
+  background: rgba(17, 24, 39, 0.08);
+  padding: 2px 5px;
+  border-radius: 6px;
+}
+
+.chatbot-message pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.chatbot-message a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.chatbot-message table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.chatbot-message th,
+.chatbot-message td {
+  border: 1px solid rgba(17, 24, 39, 0.18);
+  padding: 6px 8px;
+  text-align: left;
+}
+
+.chatbot-message blockquote {
+  margin: 8px 0 0;
+  padding-left: 10px;
+  border-left: 3px solid rgba(17, 24, 39, 0.28);
+}
+
+.chatbot-message-user {
+  align-self: flex-end;
+  background: #1674ea;
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+.chatbot-message-assistant {
+  align-self: flex-start;
+  background: #eef2f7;
+  color: #1f2937;
+  border-bottom-left-radius: 4px;
+}
+
+.chatbot-input-row {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  border-top: 1px solid var(--border-light);
+  background: #ffffff;
+}
+
+.chatbot-input-row input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  color: var(--text-black);
+}
+
+.chatbot-input-row input:focus {
+  outline: none;
+  border-color: #9ca3af;
+}
+
+.chatbot-input-row button {
+  border: none;
+  border-radius: 10px;
+  background: var(--primary-yellow);
+  color: #000000;
+  padding: 0 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chatbot-input-row button:hover:not(:disabled) {
+  background: var(--primary-yellow-hover);
+}
+
+.chatbot-input-row button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.chatbot-error {
+  color: #b91c1c;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 14px 0;
+}
+
+.chatbot-loading-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chatbot-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6b7280;
+  animation: chatbot-pulse 1.2s infinite ease-in-out;
+}
+
+.chatbot-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.chatbot-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes chatbot-pulse {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.45;
+  }
+
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================== */
+@media (max-width: 1100px) {
+  .movies-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .movies-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px 12px;
+  }
+}
+
+@media (max-width: 550px) {
+  .main-header {
+    padding: 12px 16px;
+  }
+
+  .header-right {
+    gap: 12px;
+  }
+
+  .watchlist-link span {
+    display: none;
+  }
+
+  .container {
+    padding: 20px 16px;
+  }
+
+  .hero-section {
+    padding: 24px 16px;
+  }
+
+  .hero-section h1 {
+    font-size: 1.4rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search-bar button {
+    width: 100%;
+  }
+
+  .movies-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 10px;
+  }
+
+  .chatbot-shell {
+    height: calc(100vh - 170px);
+    min-height: 420px;
+  }
+
+  .chatbot-message {
+    max-width: 92%;
+  }
+
+  .chatbot-input-row {
+    gap: 8px;
+    padding: 10px;
+  }
+}
