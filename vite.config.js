@@ -6,21 +6,21 @@ import { fileURLToPath } from 'node:url';
 const projectRoot = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, projectRoot, '');
+    const env = loadEnv(mode, projectRoot, '');
 
-  return {
-    plugins: [react(), tailwindcss()],
-    server: {
-      proxy: {
-        '/groq-api': {
-          target: 'https://api.groq.com',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/groq-api/, '/openai/v1'),
-          headers: env.GROQ_API_KEY
-            ? { Authorization: `Bearer ${env.GROQ_API_KEY}` }
-            : {},
+    return {
+        plugins: [react(), tailwindcss()],
+        server: {
+            proxy: {
+                '/groq-api': {
+                    target: 'https://api.groq.com',
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/groq-api/, '/openai/v1'),
+                    headers: env.GROQ_API_KEY
+                        ? { Authorization: `Bearer ${env.GROQ_API_KEY}` }
+                        : {},
+                },
+            },
         },
-      },
-    },
-  };
+    };
 });

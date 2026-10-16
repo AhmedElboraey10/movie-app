@@ -9,23 +9,23 @@ import { MovieDetails } from './pages/MovieDetails';
 import ChatbotPage from './pages/ChatbotPage';
 
 const App = () => {
-  return (
-    <WatchlistProvider>
-      <AppProvider>
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/search" element={<SearchResultsPage />} />
-            <Route path="/movie/:id" element={<MovieDetails />} />
-            <Route path="/watchlist" element={<WatchlistPage />} />
-            <Route path="/assistant" element={<ChatbotPage />} />
-            <Route path="*" element={<HomePage />} />
-          </Routes>
-        </Router>
-      </AppProvider>
-    </WatchlistProvider>
-  );
+    return (
+        <WatchlistProvider>
+            <AppProvider>
+                <Router>
+                    <Header />
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/search" element={<SearchResultsPage />} />
+                        <Route path="/movie/:id" element={<MovieDetails />} />
+                        <Route path="/watchlist" element={<WatchlistPage />} />
+                        <Route path="/assistant" element={<ChatbotPage />} />
+                        <Route path="*" element={<HomePage />} />
+                    </Routes>
+                </Router>
+            </AppProvider>
+        </WatchlistProvider>
+    );
 };
 
 export default App;
