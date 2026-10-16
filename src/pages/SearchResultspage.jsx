@@ -55,7 +55,7 @@ export const SearchResultsPage = () => {
     };
 
     return (
-        <main className="mx-auto w-full max-w-[1200px] px-4 py-5 min-[551px]:px-6 min-[551px]:py-8">
+        <main className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6 sm:py-8">
             {/* Standalone Search Bar with generous bottom margin */}
             <form onSubmit={handleSearch} className="mb-9 flex w-full flex-col gap-4 sm:flex-row">
                 <input
@@ -63,11 +63,11 @@ export const SearchResultsPage = () => {
                     value={inputVal}
                     placeholder="Search and explore...."
                     onChange={(e) => setSearchDraft({ query, value: e.target.value })}
-                    className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-5 py-3 text-[0.95rem] text-gray-900 outline-none focus:border-gray-400"
+                    className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-5 py-3 text-base text-gray-900 outline-none focus:border-gray-400"
                 />
                 <button
                     type="submit"
-                    className="shrink-0 rounded-lg bg-[#fee135] px-9 py-3 text-[0.95rem] font-semibold text-black transition-colors hover:bg-[#fcd700]"
+                    className="shrink-0 rounded-lg bg-[#fee135] px-9 py-3 text-base font-semibold text-black transition-colors hover:bg-[#fcd700]"
                 >
                     Search
                 </button>
@@ -87,13 +87,13 @@ export const SearchResultsPage = () => {
             </div>
 
             {loading && (
-                <div className="py-[60px] text-center text-gray-500">
+                <div className="py-16 text-center text-gray-500">
                     <p>Searching movies...</p>
                 </div>
             )}
 
             {error && (
-                <div className="py-[60px] text-center text-red-500">
+                <div className="py-16 text-center text-red-500">
                     <p>Error: {error}</p>
                 </div>
             )}
@@ -102,7 +102,7 @@ export const SearchResultsPage = () => {
                 <>
                     {results.length > 0 ? (
                         <>
-                            <div className="mb-10 grid w-full grid-cols-2 gap-x-2.5 gap-y-4 min-[551px]:grid-cols-3 min-[801px]:grid-cols-4 min-[1101px]:grid-cols-6 min-[551px]:gap-x-4 min-[551px]:gap-y-6">
+                            <div className="mb-10 grid w-full grid-cols-2 gap-x-2.5 gap-y-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-x-4 sm:gap-y-6">
                                 {results.map((movie) => (
                                     <MovieCard key={movie.id} movie={movie} />
                                 ))}
@@ -146,7 +146,7 @@ export const SearchResultsPage = () => {
                         </>
                     ) : (
                         query && (
-                            <div className="py-[60px] text-center">
+                            <div className="py-16 text-center">
                                 <p className="mb-4 text-gray-500">
                                     No movies found matching "{query}".
                                 </p>

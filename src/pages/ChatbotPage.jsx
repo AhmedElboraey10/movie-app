@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { createChatCompletion } from '../services/groqService';
 
-const GROQ_ENDPOINT = '/groq-api/chat/completions';
 const GROQ_MODEL = import.meta.env.VITE_GROQ_MODEL || 'openai/gpt-oss-20b';
 const MAX_HISTORY_MESSAGES = 8;
 const MAX_COMPLETION_TOKENS = 128;
@@ -40,25 +40,16 @@ export const ChatbotPage = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch(GROQ_ENDPOINT, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    model: GROQ_MODEL,
-                    messages: [
-                        { role: 'system', content: SYSTEM_PROMPT },
-                        ...updatedMessages.slice(-MAX_HISTORY_MESSAGES),
-                    ],
-                    max_completion_tokens: MAX_COMPLETION_TOKENS,
-                    reasoning_effort: 'low',
-                    temperature: 0.4,
-                }),
+            const data = await createChatCompletion({
+                model: GROQ_MODEL,
+                messages: [
+                    { role: 'system', content: SYSTEM_PROMPT },
+                    ...updatedMessages.slice(-MAX_HISTORY_MESSAGES),
+                ],
+                max_completion_tokens: MAX_COMPLETION_TOKENS,
+                reasoning_effort: 'low',
+                temperature: 0.4,
             });
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data?.error?.message || `Groq request failed (${response.status})`);
-            }
 
             const resolvedReply = data.choices?.[0]?.message?.content?.trim();
             if (!resolvedReply) {
@@ -75,14 +66,14 @@ export const ChatbotPage = () => {
     };
 
     return (
-        <main className="mx-auto w-full max-w-[1200px] px-4 py-5 min-[551px]:px-6 min-[551px]:py-7">
+        <main className="mx-auto w-full max-w-300 px-4 py-5 sm:px-6 sm:py-7">
             <h1 className="mb-5 text-2xl font-bold tracking-tight text-gray-900">
                 CineBot Assistant
             </h1>
 
-            <div className="flex h-[calc(100vh-170px)] min-h-[420px] flex-col overflow-hidden rounded-[14px] border border-gray-200 bg-gradient-to-b from-[#fafafa] to-white min-[551px]:h-[calc(100vh-210px)] min-[551px]:min-h-[460px]">
+            <div className="flex h-[calc(100vh-10.625rem)] min-h-105 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-linear-to-b from-[#fafafa] to-white sm:h-[calc(100vh-13.125rem)] sm:min-h-115">
                 <div
-                    className="flex flex-1 flex-col gap-3 overflow-y-auto p-3.5 min-[551px]:p-[18px]"
+                    className="flex flex-1 flex-col gap-3 overflow-y-auto p-3.5 sm:p-4.5"
                     aria-live="polite"
                 >
                     {messages
@@ -90,7 +81,7 @@ export const ChatbotPage = () => {
                         .map((message, idx) => (
                             <div
                                 key={`${message.role}-${idx}`}
-                                className={`markdown-content max-w-[92%] break-words rounded-[14px] px-3.5 py-2.5 text-[0.95rem] leading-[1.45] min-[551px]:max-w-[78%] ${message.role === 'user' ? 'self-end rounded-br bg-[#1674ea] text-white' : 'self-start rounded-bl bg-[#eef2f7] text-gray-800'}`}
+                                className={`markdown-content max-w-11/12 wrap-break-word rounded-2xl px-3.5 py-2.5 text-base leading-6 sm:max-w-3/4 ${message.role === 'user' ? 'self-end rounded-br bg-[#1674ea] text-white' : 'self-start rounded-bl bg-[#eef2f7] text-gray-800'}`}
                             >
                                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                     {message.content}
@@ -100,12 +91,12 @@ export const ChatbotPage = () => {
 
                     {isLoading && (
                         <div
-                            className="inline-flex items-center gap-1.5 self-start rounded-bl-[4px] rounded-[14px] bg-[#eef2f7] px-3.5 py-2.5"
+                            className="inline-flex items-center gap-1.5 self-start rounded-bl-sm rounded-2xl bg-[#eef2f7] px-3.5 py-2.5"
                             aria-label="Assistant is typing"
                         >
-                            <span className="h-[7px] w-[7px] animate-[typing-pulse_1.2s_ease-in-out_infinite] rounded-full bg-gray-500" />
-                            <span className="h-[7px] w-[7px] animate-[typing-pulse_1.2s_ease-in-out_0.15s_infinite] rounded-full bg-gray-500" />
-                            <span className="h-[7px] w-[7px] animate-[typing-pulse_1.2s_ease-in-out_0.3s_infinite] rounded-full bg-gray-500" />
+                            <span className="size-2 animate-[typing-pulse_1.2s_ease-in-out_infinite] rounded-full bg-gray-500" />
+                            <span className="size-2 animate-[typing-pulse_1.2s_ease-in-out_0.15s_infinite] rounded-full bg-gray-500" />
+                            <span className="size-2 animate-[typing-pulse_1.2s_ease-in-out_0.3s_infinite] rounded-full bg-gray-500" />
                         </div>
                     )}
 
@@ -117,7 +108,7 @@ export const ChatbotPage = () => {
                 )}
 
                 <form
-                    className="flex gap-2 border-t border-gray-200 bg-white p-2.5 min-[551px]:gap-3 min-[551px]:p-3.5"
+                    className="flex gap-2 border-t border-gray-200 bg-white p-2.5 sm:gap-3 sm:p-3.5"
                     onSubmit={handleSendMessage}
                 >
                     <input
@@ -127,12 +118,12 @@ export const ChatbotPage = () => {
                         placeholder="Ask about movies, actors, directors, or TV shows..."
                         aria-label="Chat message"
                         maxLength={MAX_INPUT_CHARACTERS}
-                        className="min-w-0 flex-1 rounded-[10px] border border-gray-200 px-3.5 py-3 text-[0.95rem] text-gray-900 outline-none focus:border-gray-400"
+                        className="min-w-0 flex-1 rounded-xl border border-gray-200 px-3.5 py-3 text-base text-gray-900 outline-none focus:border-gray-400"
                     />
                     <button
                         type="submit"
                         disabled={isLoading || !inputValue.trim()}
-                        className="rounded-[10px] bg-[#fee135] px-4 font-semibold text-black transition-colors hover:enabled:bg-[#fcd700] disabled:cursor-not-allowed disabled:opacity-60 min-[551px]:px-[18px]"
+                        className="rounded-xl bg-[#fee135] px-4 font-semibold text-black transition-colors hover:enabled:bg-[#fcd700] disabled:cursor-not-allowed disabled:opacity-60 sm:px-4"
                     >
                         Send
                     </button>

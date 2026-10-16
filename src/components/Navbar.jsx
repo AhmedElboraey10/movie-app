@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
+import { Heart } from 'lucide-react';
 import { useWatchlist } from '../context/WatchlistContext';
-import { FaHeart } from 'react-icons/fa';
 
 function Navbar() {
     const { count } = useWatchlist();
@@ -11,8 +11,8 @@ function Navbar() {
                 Movie App
             </Link>
 
-            <Link to="/watchlist" className="flex items-center gap-1.5 text-[15px] text-black">
-                <FaHeart size={18} color="#000" />
+            <Link to="/watchlist" className="flex items-center gap-1.5 text-base text-black">
+                <Heart size={18} fill="currentColor" aria-hidden="true" />
                 <span>watchlist</span>
                 {count > 0 && (
                     <span className="rounded-full bg-black px-1.5 py-0.5 text-xs text-white">

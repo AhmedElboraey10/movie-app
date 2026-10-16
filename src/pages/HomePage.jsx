@@ -45,13 +45,13 @@ export const HomePage = () => {
     };
 
     return (
-        <main className="mx-auto w-full max-w-[1200px] px-4 py-5 min-[551px]:px-6 min-[551px]:py-8">
+        <main className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6 sm:py-8">
             {/* Hero Section */}
             <div className="mb-8 rounded-xl bg-[#f4f5f7] p-6 text-left sm:p-8">
-                <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-[1.75rem]">
+                <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                     Welcome to our movie app
                 </h1>
-                <p className="mb-6 text-[0.95rem] text-gray-500">
+                <p className="mb-6 text-base text-gray-500">
                     Millions of movies, TV shows and people to discover. Explore now.
                 </p>
                 <form onSubmit={handleSearch} className="flex w-full flex-col gap-4 sm:flex-row">
@@ -60,11 +60,11 @@ export const HomePage = () => {
                         placeholder="Search and explore...."
                         value={term}
                         onChange={(e) => setTerm(e.target.value)}
-                        className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-5 py-3 text-[0.95rem] text-gray-900 outline-none focus:border-gray-400"
+                        className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-5 py-3 text-base text-gray-900 outline-none focus:border-gray-400"
                     />
                     <button
                         type="submit"
-                        className="shrink-0 rounded-lg bg-[#fee135] px-9 py-3 text-[0.95rem] font-semibold text-black transition-colors hover:bg-[#fcd700]"
+                        className="shrink-0 rounded-lg bg-[#fee135] px-9 py-3 text-base font-semibold text-black transition-colors hover:bg-[#fcd700]"
                     >
                         Search
                     </button>
@@ -75,20 +75,20 @@ export const HomePage = () => {
             <h2 className="mb-5 text-2xl font-bold tracking-tight text-gray-900">Now Playing</h2>
 
             {loading && (
-                <div className="py-[60px] text-center text-gray-500">
+                <div className="py-16 text-center text-gray-500">
                     <p>Loading movies...</p>
                 </div>
             )}
 
             {error && (
-                <div className="py-[60px] text-center text-red-500">
+                <div className="py-16 text-center text-red-500">
                     <p>Error: {error}</p>
                 </div>
             )}
 
             {!loading && !error && (
                 <>
-                    <div className="mb-10 grid w-full grid-cols-2 gap-x-2.5 gap-y-4 min-[551px]:grid-cols-3 min-[801px]:grid-cols-4 min-[1101px]:grid-cols-6 min-[551px]:gap-x-4 min-[551px]:gap-y-6">
+                    <div className="mb-10 grid w-full grid-cols-2 gap-x-2.5 gap-y-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-x-4 sm:gap-y-6">
                         {movies.map((movie) => (
                             <MovieCard key={movie.id} movie={movie} />
                         ))}
