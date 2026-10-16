@@ -1,18 +1,16 @@
 import { Link } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import { useApp } from '../hooks/useApp';
+import { useApp } from '../context/AppContext';
 
 export const Header = () => {
     const { watchlist } = useApp();
-    const count = watchlist ? watchlist.length : 0;
+    const count = watchlist.length;
 
     return (
         <header className="sticky top-0 z-50 flex w-full items-center justify-between bg-[#fee135] px-4 py-3 sm:px-8 sm:py-3.5">
-            <div>
-                <Link to="/" className="text-xl font-bold tracking-tight text-black">
-                    Movie App
-                </Link>
-            </div>
+            <Link to="/" className="text-xl font-bold tracking-tight text-black">
+                Movie App
+            </Link>
             <div className="flex items-center gap-3.5 sm:gap-7">
                 <Link
                     to="/assistant"

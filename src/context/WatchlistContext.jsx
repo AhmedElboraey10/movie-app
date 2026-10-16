@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
-import { WatchlistContext } from './watchlistContextValue';
+import { createContext, useState, useContext, useEffect } from 'react';
+
+/* eslint-disable react-refresh/only-export-components */
+
+const WatchlistContext = createContext(null);
 
 export function WatchlistProvider({ children }) {
     const [watchlist, setWatchlist] = useState(() => {
@@ -11,15 +14,13 @@ export function WatchlistProvider({ children }) {
         localStorage.setItem('watchlist', JSON.stringify(watchlist));
     }, [watchlist]);
 
-    const toggleWatchlist = (item, mediaType = 'movie') => {
-        const itemWithMedia = { ...item, media_type: item.media_type || mediaType };
-
+    const toggleWatchlist = (item) => {
         setWatchlist((prev) => {
             const exists = prev.some((i) => i.id === item.id);
             if (exists) {
                 return prev.filter((i) => i.id !== item.id);
             }
-            return [...prev, itemWithMedia];
+            return [...prev, item];
         });
     };
 
@@ -29,13 +30,13 @@ export function WatchlistProvider({ children }) {
         <WatchlistContext.Provider
             value={{
                 watchlist,
-                setWatchlist,
                 toggleWatchlist,
                 isInWatchlist,
-                count: watchlist.length,
             }}
         >
             {children}
         </WatchlistContext.Provider>
     );
 }
+
+export const useWatchlist = () => useContext(WatchlistContext);

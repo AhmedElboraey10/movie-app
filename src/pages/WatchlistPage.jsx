@@ -1,4 +1,4 @@
-import { useWatchlist } from '../hooks/useWatchlist';
+import { useWatchlist } from '../context/WatchlistContext';
 import { MovieCard } from '../components/MovieCard';
 import { Link } from 'react-router-dom';
 import { HeartCrack } from 'lucide-react';
@@ -31,7 +31,6 @@ function WatchlistPage() {
                         <MovieCard
                             key={item.id}
                             movie={item}
-                            mediaType={item.media_type}
                             isHorizontal={true}
                         />
                     ))}

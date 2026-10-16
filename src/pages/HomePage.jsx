@@ -7,10 +7,11 @@ export const HomePage = () => {
     const [movies, setMovies] = useState([]);
     const [term, setTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(5);
+    const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const visiblePages = Array.from({ length: Math.min(totalPages, 5) }, (_, index) => index + 1);
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -18,12 +19,10 @@ export const HomePage = () => {
             setError(null);
             try {
                 const data = await getNowPlayingMovies(currentPage);
-                setMovies(data.results || []);
-                if (data.total_pages) {
-                    setTotalPages(Math.min(data.total_pages, 500));
-                }
+                setMovies(data.results);
+                setTotalPages(Math.min(data.total_pages, 500));
             } catch (err) {
-                setError(err.message || 'Failed to load movies');
+                setError(err.message);
             } finally {
                 setLoading(false);
             }
@@ -46,7 +45,6 @@ export const HomePage = () => {
 
     return (
         <main className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6 sm:py-8">
-            {/* Hero Section */}
             <div className="mb-8 rounded-xl bg-[#f4f5f7] p-6 text-left sm:p-8">
                 <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                     Welcome to our movie app
@@ -70,8 +68,6 @@ export const HomePage = () => {
                     </button>
                 </form>
             </div>
-
-            {/* Now Playing Grid */}
             <h2 className="mb-5 text-2xl font-bold tracking-tight text-gray-900">Now Playing</h2>
 
             {loading && (
@@ -93,8 +89,6 @@ export const HomePage = () => {
                             <MovieCard key={movie.id} movie={movie} />
                         ))}
                     </div>
-
-                    {/* Pagination */}
                     <div className="my-8 flex w-full items-center justify-center gap-2">
                         <button
                             type="button"
@@ -104,7 +98,7 @@ export const HomePage = () => {
                         >
                             &lt;
                         </button>
-                        {[1, 2, 3, 4, 5].map((pageNum) => (
+                        {visiblePages.map((pageNum) => (
                             <button
                                 key={pageNum}
                                 type="button"
@@ -114,7 +108,7 @@ export const HomePage = () => {
                                 {pageNum}
                             </button>
                         ))}
-                        <span className="px-1 text-gray-500">....</span>
+                        {totalPages > 5 && <span className="px-1 text-gray-500">....</span>}
                         <button
                             type="button"
                             className="flex h-8 min-w-8 items-center justify-center rounded-md border-0 bg-transparent px-1.5 text-sm font-medium text-gray-900 transition-colors hover:not-disabled:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-35"

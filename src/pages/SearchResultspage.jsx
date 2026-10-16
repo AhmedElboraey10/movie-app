@@ -14,6 +14,7 @@ export const SearchResultsPage = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const visiblePages = Array.from({ length: Math.min(totalPages, 5) }, (_, index) => index + 1);
 
     useEffect(() => {
         if (!query.trim()) {
@@ -25,12 +26,10 @@ export const SearchResultsPage = () => {
             setError(null);
             try {
                 const data = await searchMovies(query, currentPage);
-                setResults(data.results || []);
-                if (data.total_pages) {
-                    setTotalPages(Math.min(data.total_pages, 500));
-                }
+                setResults(data.results);
+                setTotalPages(Math.min(data.total_pages, 500));
             } catch (err) {
-                setError(err.message || 'Failed to search movies');
+                setError(err.message);
             } finally {
                 setLoading(false);
             }
@@ -56,7 +55,6 @@ export const SearchResultsPage = () => {
 
     return (
         <main className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6 sm:py-8">
-            {/* Standalone Search Bar with generous bottom margin */}
             <form onSubmit={handleSearch} className="mb-9 flex w-full flex-col gap-4 sm:flex-row">
                 <input
                     type="text"
@@ -72,8 +70,6 @@ export const SearchResultsPage = () => {
                     Search
                 </button>
             </form>
-
-            {/* Results Header with Generous Spacing */}
             <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">
                     {query ? `Search Results for : ${query}` : 'All Movies'}
@@ -82,7 +78,7 @@ export const SearchResultsPage = () => {
                     to="/"
                     className="inline-flex items-center gap-1.5 rounded-lg bg-[#fee135] px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#fcd700]"
                 >
-                    ← Back to Home
+                    &larr; Back to Home
                 </Link>
             </div>
 
@@ -118,18 +114,16 @@ export const SearchResultsPage = () => {
                                     >
                                         &lt;
                                     </button>
-                                    {[1, 2, 3, 4, 5]
-                                        .slice(0, Math.min(5, totalPages))
-                                        .map((pageNum) => (
-                                            <button
-                                                key={pageNum}
-                                                type="button"
-                                                className={`flex h-8 min-w-8 items-center justify-center rounded-md border-0 px-1.5 text-sm transition-colors ${currentPage === pageNum ? 'bg-[#fee135] font-bold text-black' : 'bg-transparent font-medium text-gray-900 hover:bg-gray-100'}`}
-                                                onClick={() => handlePageChange(pageNum)}
-                                            >
-                                                {pageNum}
-                                            </button>
-                                        ))}
+                                    {visiblePages.map((pageNum) => (
+                                        <button
+                                            key={pageNum}
+                                            type="button"
+                                            className={`flex h-8 min-w-8 items-center justify-center rounded-md border-0 px-1.5 text-sm transition-colors ${currentPage === pageNum ? 'bg-[#fee135] font-bold text-black' : 'bg-transparent font-medium text-gray-900 hover:bg-gray-100'}`}
+                                            onClick={() => handlePageChange(pageNum)}
+                                        >
+                                            {pageNum}
+                                        </button>
+                                    ))}
                                     {totalPages > 5 && (
                                         <span className="px-1 text-gray-500">....</span>
                                     )}

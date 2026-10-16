@@ -1,29 +1,24 @@
-import { useState } from 'react';
-import { useWatchlist } from '../hooks/useWatchlist';
-import { AppContext } from './appContextValue';
+import { createContext, useContext } from 'react';
+import { useWatchlist } from './WatchlistContext';
+
+/* eslint-disable react-refresh/only-export-components */
+
+const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
-    const { watchlist, setWatchlist, toggleWatchlist, isInWatchlist } = useWatchlist();
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const isFavorite = (movieId) => {
-        return isInWatchlist ? isInWatchlist(movieId) : false;
-    };
+    const { watchlist, toggleWatchlist, isInWatchlist } = useWatchlist();
 
     return (
         <AppContext.Provider
             value={{
                 watchlist,
-                wishlist: watchlist, // Safe alias
-                setWatchlist,
                 toggleWatchlist,
-                toggleWishlist: toggleWatchlist, // Safe alias
-                isFavorite,
-                searchQuery,
-                setSearchQuery,
+                isInWatchlist,
             }}
         >
             {children}
         </AppContext.Provider>
     );
 };
+
+export const useApp = () => useContext(AppContext);

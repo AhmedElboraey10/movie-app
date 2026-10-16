@@ -1,21 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import { useApp } from '../hooks/useApp';
+import { useApp } from '../context/AppContext';
 import { MovieCard } from '../components/MovieCard';
 import { getMovieDetails, getMovieRecommendations } from '../services/tmdbService';
 
 export const MovieDetails = () => {
     const { id } = useParams();
-    const movieId = id || 550; // Fallback to Fight Club if no param
-
     const [movie, setMovie] = useState(null);
     const [recommendations, setRecommendations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const { toggleWatchlist, isFavorite } = useApp();
-    const fav = movie && isFavorite ? isFavorite(movie.id) : false;
+    const { toggleWatchlist, isInWatchlist } = useApp();
+    const fav = movie ? isInWatchlist(movie.id) : false;
     const fallbackPoster = 'https://placehold.co/500x750/f3f4f6/9ca3af?text=No+Poster';
 
     useEffect(() => {
@@ -24,13 +22,13 @@ export const MovieDetails = () => {
             setError(null);
             try {
                 const [movieData, recsData] = await Promise.all([
-                    getMovieDetails(movieId),
-                    getMovieRecommendations(movieId).catch(() => ({ results: [] })),
+                    getMovieDetails(id),
+                    getMovieRecommendations(id).catch(() => ({ results: [] })),
                 ]);
                 setMovie(movieData);
-                setRecommendations(recsData.results || []);
+                setRecommendations(recsData.results);
             } catch (err) {
-                setError(err.message || 'Failed to load movie details');
+                setError(err.message);
             } finally {
                 setLoading(false);
             }
@@ -38,11 +36,11 @@ export const MovieDetails = () => {
 
         fetchDetails();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [movieId]);
+    }, [id]);
 
     const renderStars = (voteAverage) => {
-        const ratingOutOfFive = voteAverage ? Math.round(voteAverage / 2) : 4;
-        return '★'.repeat(ratingOutOfFive) + '☆'.repeat(5 - ratingOutOfFive);
+        const ratingOutOfFive = Math.round(voteAverage / 2);
+        return '\u2605'.repeat(ratingOutOfFive) + '\u2606'.repeat(5 - ratingOutOfFive);
     };
 
     if (loading) {
@@ -70,18 +68,14 @@ export const MovieDetails = () => {
 
     const posterSrc = movie.poster_path
         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-        : movie.poster || fallbackPoster;
+        : fallbackPoster;
 
-    const languages =
-        movie.spoken_languages && movie.spoken_languages.length > 0
-            ? movie.spoken_languages.map((lang) => lang.english_name || lang.name).join(', ')
-            : 'English';
-
-    const voteCount = movie.vote_count || 9288;
+    const languages = movie.spoken_languages
+        .map((lang) => lang.english_name || lang.name)
+        .join(', ');
 
     return (
         <main className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6 sm:py-10">
-            {/* Movie Details Hero matching Figma Image 5 */}
             <div className="mb-8 flex flex-col items-center gap-8 lg:flex-row lg:items-start lg:gap-12">
                 <div className="w-60 shrink-0 overflow-hidden rounded-2xl bg-gray-100 shadow-[0_8px_24px_rgba(0,0,0,0.12)] lg:w-80">
                     <img
@@ -117,25 +111,19 @@ export const MovieDetails = () => {
                         </button>
                     </div>
 
-                    <span className="mb-3 text-sm text-gray-500">
-                        {movie.release_date || 'Sep 25, 2017'}
-                    </span>
-
-                    {/* Large Stars matching Figma */}
+                    <span className="mb-3 text-sm text-gray-500">{movie.release_date}</span>
                     <div className="mb-4 flex items-center gap-2.5">
                         <span className="text-2xl leading-none tracking-widest text-gray-900">
                             {renderStars(movie.vote_average)}
                         </span>
                         <span className="text-base font-medium text-gray-500">
-                            {voteCount.toLocaleString()}
+                            {movie.vote_count.toLocaleString()}
                         </span>
                     </div>
 
                     <p className="mb-6 text-base leading-relaxed text-gray-700">
                         {movie.overview || 'No overview available for this movie.'}
                     </p>
-
-                    {/* Genre Pills */}
                     {movie.genres && movie.genres.length > 0 && (
                         <div className="mb-6 flex flex-wrap gap-3">
                             {movie.genres.map((genre) => (
@@ -148,8 +136,6 @@ export const MovieDetails = () => {
                             ))}
                         </div>
                     )}
-
-                    {/* Meta: Duration and Languages */}
                     <div className="mb-6 flex flex-wrap items-center gap-x-8 gap-y-2 text-sm text-gray-900">
                         {movie.runtime > 0 && (
                             <span>
@@ -160,8 +146,6 @@ export const MovieDetails = () => {
                             <strong>Languages:</strong> {languages}
                         </span>
                     </div>
-
-                    {/* Production Companies */}
                     {movie.production_companies && movie.production_companies.length > 0 && (
                         <div className="mb-6 flex flex-wrap items-center gap-4">
                             {movie.production_companies.map((comp) =>
@@ -184,8 +168,6 @@ export const MovieDetails = () => {
                             )}
                         </div>
                     )}
-
-                    {/* Official Website Button */}
                     {movie.homepage && (
                         <a
                             href={movie.homepage}
@@ -193,16 +175,12 @@ export const MovieDetails = () => {
                             rel="noopener noreferrer"
                             className="inline-flex w-fit items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-medium text-gray-900 transition-colors hover:border-gray-400 hover:bg-gray-50"
                         >
-                            Website 🔗
+                            Visit website
                         </a>
                     )}
                 </div>
             </div>
-
-            {/* Break / Divider between Details Hero and Recommendations */}
             <hr className="my-10 h-px w-full border-0 bg-gray-200 sm:mt-12" />
-
-            {/* Recommendations Section */}
             {recommendations.length > 0 && (
                 <section>
                     <h2 className="mb-6 text-2xl font-bold text-gray-900">Recommendations</h2>

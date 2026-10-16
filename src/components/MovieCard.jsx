@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import { useApp } from '../hooks/useApp';
+import { useApp } from '../context/AppContext';
 
 const fallbackPoster = 'https://placehold.co/300x450/e5e7eb/6b7280?text=No+Poster';
 
@@ -16,18 +16,16 @@ const formatDate = (dateStr) => {
 };
 
 export const MovieCard = ({ movie, isHorizontal }) => {
-    const { toggleWatchlist, isFavorite } = useApp();
+    const { toggleWatchlist, isInWatchlist } = useApp();
     const navigate = useNavigate();
-    const isFavoriteMovie = isFavorite ? isFavorite(movie.id) : false;
+    const isFavoriteMovie = isInWatchlist(movie.id);
     const posterSrc = movie.poster_path
         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-        : movie.poster || fallbackPoster;
-    const formattedDate = formatDate(movie.release_date || movie.releaseDate);
+        : fallbackPoster;
+    const formattedDate = formatDate(movie.release_date);
 
-    const handleHeartClick = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        toggleWatchlist?.(movie);
+    const handleHeartClick = () => {
+        toggleWatchlist(movie);
     };
 
     if (isHorizontal) {
@@ -67,9 +65,9 @@ export const MovieCard = ({ movie, isHorizontal }) => {
                     </div>
                     <span className="mb-2 text-xs text-gray-500">{formattedDate}</span>
                     <div className="mb-3 flex items-center gap-1.5">
-                        <span className="text-base text-gray-900">أ¢ع©â€¦أ¢ع©â€¦أ¢ع©â€¦أ¢ع©â€¦أ¢ع©â€¦</span>
+                        <span className="text-base text-gray-900">{'\u2605\u2605\u2605\u2605\u2605'}</span>
                         <span className="text-xs font-medium text-gray-600">
-                            {movie.vote_count || '9288'}
+                            {movie.vote_count}
                         </span>
                     </div>
                     <p className="line-clamp-3 text-sm leading-5 text-gray-700">

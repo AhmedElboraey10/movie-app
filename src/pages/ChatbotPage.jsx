@@ -10,17 +10,15 @@ const MAX_INPUT_CHARACTERS = 800;
 const SYSTEM_PROMPT =
     'You are CineBot, a Movie Assistant. You must ONLY answer questions related to movies, TV shows, actors, and cinema. If a user asks about anything else, politely decline and steer the conversation back to movies. Keep answers concise, within 60 words unless the user asks for more detail.';
 
-const initialMessages = [];
-
 export const ChatbotPage = () => {
-    const [messages, setMessages] = useState(initialMessages);
+    const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const bottomRef = useRef(null);
 
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+        bottomRef.current.scrollIntoView({ behavior: 'smooth' });
     }, [messages, isLoading]);
 
     const handleSendMessage = async (e) => {
@@ -58,8 +56,7 @@ export const ChatbotPage = () => {
 
             setMessages((prev) => [...prev, { role: 'assistant', content: resolvedReply }]);
         } catch (err) {
-            const fallbackError = 'Failed to connect to the movie assistant. Please try again.';
-            setError(err instanceof Error && err.message ? err.message : fallbackError);
+            setError(err.message);
         } finally {
             setIsLoading(false);
         }
@@ -76,18 +73,16 @@ export const ChatbotPage = () => {
                     className="flex flex-1 flex-col gap-3 overflow-y-auto p-3.5 sm:p-4.5"
                     aria-live="polite"
                 >
-                    {messages
-                        .filter((message) => message.role !== 'system')
-                        .map((message, idx) => (
-                            <div
-                                key={`${message.role}-${idx}`}
-                                className={`markdown-content max-w-11/12 wrap-break-word rounded-2xl px-3.5 py-2.5 text-base leading-6 sm:max-w-3/4 ${message.role === 'user' ? 'self-end rounded-br bg-[#1674ea] text-white' : 'self-start rounded-bl bg-[#eef2f7] text-gray-800'}`}
-                            >
-                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                    {message.content}
-                                </ReactMarkdown>
-                            </div>
-                        ))}
+                    {messages.map((message, idx) => (
+                        <div
+                            key={`${message.role}-${idx}`}
+                            className={`markdown-content max-w-11/12 wrap-break-word rounded-2xl px-3.5 py-2.5 text-base leading-6 sm:max-w-3/4 ${message.role === 'user' ? 'self-end rounded-br bg-[#1674ea] text-white' : 'self-start rounded-bl bg-[#eef2f7] text-gray-800'}`}
+                        >
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {message.content}
+                            </ReactMarkdown>
+                        </div>
+                    ))}
 
                     {isLoading && (
                         <div
