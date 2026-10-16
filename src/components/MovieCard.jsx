@@ -32,7 +32,7 @@ const MovieRating = ({ movie }) => {
         <span
             role="img"
             aria-label={`TMDB rating ${rating}%`}
-            className="absolute bottom-5 left-3 z-20 grid size-10 place-items-center rounded-full p-[3px] shadow-lg"
+            className="absolute -bottom-5 left-3 z-20 grid size-10 place-items-center rounded-full p-[3px] shadow-lg"
             style={{ background: `conic-gradient(${ratingColor} ${rating}%, #3f4b53 0)` }}
         >
             <span className="grid size-full place-items-center rounded-full bg-[#101820] text-[10px] font-extrabold leading-none text-white">
