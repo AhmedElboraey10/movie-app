@@ -2,61 +2,37 @@ import { useWatchlist } from '../context/WatchlistContext';
 import { MovieCard } from '../components/MovieCard';
 import { Link } from 'react-router-dom';
 import { FaHeartBroken } from 'react-icons/fa';
-import './WatchlistPage.css';
 
 function WatchlistPage() {
   const { watchlist } = useWatchlist();
 
   return (
-    <div className="container" style={{ minHeight: 'calc(100vh - 60px)' }}>
-      <h1 className="section-title" style={{ marginBottom: '36px' }}>
+    <main className="mx-auto min-h-[calc(100vh-60px)] w-full max-w-[1200px] px-4 py-5 min-[551px]:px-6 min-[551px]:py-8">
+      <h1 className="mb-9 text-2xl font-bold text-gray-900">
         Watch list
       </h1>
 
       {watchlist.length === 0 ? (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: '20px',
-          }}
-        >
+        <div className="mt-5 flex flex-col items-center justify-center">
           <FaHeartBroken
             size={140}
             color="#d1d5db"
-            style={{ marginBottom: '24px' }}
+            className="mb-6"
           />
 
-          <h2
-            style={{
-              fontSize: '24px',
-              fontWeight: '500',
-              color: '#000',
-              marginBottom: '28px',
-            }}
-          >
+          <h2 className="mb-7 text-2xl font-medium text-black">
             No Movies in watch list
           </h2>
 
           <Link
             to="/"
-            style={{
-              backgroundColor: '#FFE353',
-              color: '#000',
-              padding: '12px 64px',
-              borderRadius: '10px',
-              textDecoration: 'none',
-              fontWeight: '500',
-              fontSize: '15px',
-            }}
+            className="rounded-[10px] bg-[#ffe353] px-16 py-3 text-[15px] font-medium text-black"
           >
             Back to home
           </Link>
         </div>
       ) : (
-        <div className="watchlist-grid">
+        <div className="grid grid-cols-1 gap-6 min-[769px]:grid-cols-2">
           {watchlist.map((item) => (
             <MovieCard 
               key={item.id} 
@@ -67,7 +43,7 @@ function WatchlistPage() {
           ))}
         </div>
       )}
-    </div>
+    </main>
   );
 }
 

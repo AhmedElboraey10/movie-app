@@ -11,14 +11,14 @@ function Home() {
   }, []);
 
   return (
-    <div style={{ padding: '20px', backgroundColor: '#111', minHeight: '100vh' }}>
-      <h2 style={{ color: '#fff', marginBottom: '20px' }}>Now Playing Movies</h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+    <main className="min-h-screen bg-gray-950 p-5 text-white">
+      <h2 className="mb-5 text-xl font-bold">Now Playing Movies</h2>
+      <div className="flex flex-wrap gap-5">
         {movies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} mediaType="movie" />
         ))}
       </div>
-    </div>
+    </main>
   );
 }
 

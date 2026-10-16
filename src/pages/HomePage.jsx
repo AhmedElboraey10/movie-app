@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MovieCard } from '../components/MovieCard';
 import { getNowPlayingMovies } from '../services/tmdbService';
@@ -45,50 +45,51 @@ export const HomePage = () => {
   };
 
   return (
-    <div className="container">
+    <main className="mx-auto w-full max-w-[1200px] px-4 py-5 min-[551px]:px-6 min-[551px]:py-8">
       {/* Hero Section */}
-      <div className="hero-section">
-        <h1>Welcome to our movie app</h1>
-        <p>Millions of movies, TV shows and people to discover. Explore now.</p>
-        <form onSubmit={handleSearch} className="search-bar">
+      <div className="mb-8 rounded-xl bg-[#f4f5f7] p-6 text-left sm:p-8">
+        <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-[1.75rem]">Welcome to our movie app</h1>
+        <p className="mb-6 text-[0.95rem] text-gray-500">Millions of movies, TV shows and people to discover. Explore now.</p>
+        <form onSubmit={handleSearch} className="flex w-full flex-col gap-4 sm:flex-row">
           <input
             type="text"
             placeholder="Search and explore...."
             value={term}
             onChange={(e) => setTerm(e.target.value)}
+            className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-5 py-3 text-[0.95rem] text-gray-900 outline-none focus:border-gray-400"
           />
-          <button type="submit">Search</button>
+          <button type="submit" className="shrink-0 rounded-lg bg-[#fee135] px-9 py-3 text-[0.95rem] font-semibold text-black transition-colors hover:bg-[#fcd700]">Search</button>
         </form>
       </div>
 
       {/* Now Playing Grid */}
-      <h2 className="section-title">Now Playing</h2>
+      <h2 className="mb-5 text-2xl font-bold tracking-tight text-gray-900">Now Playing</h2>
 
       {loading && (
-        <div style={{ textAlign: 'center', padding: '60px 0', color: '#6b7280' }}>
+        <div className="py-[60px] text-center text-gray-500">
           <p>Loading movies...</p>
         </div>
       )}
 
       {error && (
-        <div style={{ textAlign: 'center', padding: '60px 0', color: '#ef4444' }}>
+        <div className="py-[60px] text-center text-red-500">
           <p>Error: {error}</p>
         </div>
       )}
 
       {!loading && !error && (
         <>
-          <div className="movies-grid">
+          <div className="mb-10 grid w-full grid-cols-2 gap-x-2.5 gap-y-4 min-[551px]:grid-cols-3 min-[801px]:grid-cols-4 min-[1101px]:grid-cols-6 min-[551px]:gap-x-4 min-[551px]:gap-y-6">
             {movies.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
           </div>
 
           {/* Pagination */}
-          <div className="pagination">
+          <div className="my-8 flex w-full items-center justify-center gap-2">
             <button
               type="button"
-              className="page-btn"
+              className="flex h-8 min-w-8 items-center justify-center rounded-md border-0 bg-transparent px-1.5 text-sm font-medium text-gray-900 transition-colors hover:not-disabled:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-35"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
@@ -98,16 +99,16 @@ export const HomePage = () => {
               <button
                 key={pageNum}
                 type="button"
-                className={`page-btn ${currentPage === pageNum ? 'active' : ''}`}
+                className={`flex h-8 min-w-8 items-center justify-center rounded-md border-0 px-1.5 text-sm transition-colors ${currentPage === pageNum ? 'bg-[#fee135] font-bold text-black' : 'bg-transparent font-medium text-gray-900 hover:bg-gray-100'}`}
                 onClick={() => handlePageChange(pageNum)}
               >
                 {pageNum}
               </button>
             ))}
-            <span style={{ padding: '0 4px', color: '#6b7280' }}>....</span>
+            <span className="px-1 text-gray-500">....</span>
             <button
               type="button"
-              className="page-btn"
+              className="flex h-8 min-w-8 items-center justify-center rounded-md border-0 bg-transparent px-1.5 text-sm font-medium text-gray-900 transition-colors hover:not-disabled:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-35"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
@@ -116,6 +117,6 @@ export const HomePage = () => {
           </div>
         </>
       )}
-    </div>
+    </main>
   );
 };

@@ -6,23 +6,16 @@ function Navbar() {
   const { count } = useWatchlist();
 
   return (
-    <nav style={{ 
-      display: 'flex', 
-      justifyContent: 'space-between', 
-      alignItems: 'center', 
-      padding: '16px 24px', 
-      backgroundColor: '#facc15', 
-      color: '#000' 
-    }}>
-      <Link to="/" style={{ textDecoration: 'none', color: '#000', fontWeight: 'bold', fontSize: '16px' }}>
+    <nav className="flex items-center justify-between bg-yellow-300 px-6 py-4 text-black">
+      <Link to="/" className="text-base font-bold text-black">
         Movie App
       </Link>
       
-      <Link to="/watchlist" style={{ textDecoration: 'none', color: '#000', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '15px' }}>
+      <Link to="/watchlist" className="flex items-center gap-1.5 text-[15px] text-black">
         <FaHeart size={18} color="#000" />
         <span>watchlist</span>
         {count > 0 && (
-          <span style={{ backgroundColor: '#000', color: '#fff', borderRadius: '50%', padding: '2px 6px', fontSize: '12px' }}>
+          <span className="rounded-full bg-black px-1.5 py-0.5 text-xs text-white">
             {count}
           </span>
         )}

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { MovieCard } from '../components/MovieCard';
 import { getMovieDetails, getMovieRecommendations } from '../services/tmdbService';
-import './MovieDetails.css';
 
 export const MovieDetails = () => {
   const { id } = useParams();
@@ -47,7 +46,7 @@ export const MovieDetails = () => {
 
   if (loading) {
     return (
-      <div className="container" style={{ textAlign: 'center', padding: '80px 0', color: '#6b7280' }}>
+      <div className="mx-auto w-full max-w-[1200px] px-6 py-20 text-center text-gray-500">
         <p>Loading movie details from TMDB...</p>
       </div>
     );
@@ -55,21 +54,12 @@ export const MovieDetails = () => {
 
   if (error || !movie) {
     return (
-      <div className="container" style={{ textAlign: 'center', padding: '80px 0', color: '#ef4444' }}>
+      <div className="mx-auto w-full max-w-[1200px] px-6 py-20 text-center text-red-500">
         <h2>Error Loading Movie</h2>
         <p>{error || 'Movie not found.'}</p>
         <Link
           to="/"
-          style={{
-            display: 'inline-block',
-            marginTop: '20px',
-            backgroundColor: '#fee135',
-            color: '#000',
-            fontWeight: '600',
-            padding: '10px 24px',
-            borderRadius: '8px',
-            textDecoration: 'none',
-          }}
+          className="mt-5 inline-block rounded-lg bg-[#fee135] px-6 py-2.5 font-semibold text-black"
         >
           Back to home
         </Link>
@@ -88,14 +78,14 @@ export const MovieDetails = () => {
   const voteCount = movie.vote_count || 9288;
 
   return (
-    <div className="container">
+    <main className="mx-auto w-full max-w-[1200px] px-4 py-5 min-[551px]:px-6 min-[551px]:py-10">
       {/* Movie Details Hero matching Figma Image 5 */}
-      <div className="movie-details-hero">
-        <div className="movie-details-poster-wrap">
+      <div className="mb-8 flex flex-col items-center gap-8 min-[901px]:flex-row min-[901px]:items-start min-[901px]:gap-12">
+        <div className="w-60 shrink-0 overflow-hidden rounded-2xl bg-gray-100 shadow-[0_8px_24px_rgba(0,0,0,0.12)] min-[901px]:w-80">
           <img
             src={posterSrc}
             alt={movie.title}
-            className="movie-details-poster"
+            className="block h-auto w-full"
             onError={(e) => {
               e.currentTarget.onerror = null;
               e.currentTarget.src = fallbackPoster;
@@ -103,13 +93,12 @@ export const MovieDetails = () => {
           />
         </div>
 
-        <div className="movie-details-info">
-          <div className="movie-details-header">
-            <h1 className="movie-details-title">{movie.title}</h1>
+        <div className="flex flex-1 flex-col">
+          <div className="mb-1 flex items-start justify-between">
+            <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">{movie.title}</h1>
             <button
               type="button"
-              className={`heart-toggle-btn ${fav ? 'active' : ''}`}
-              style={{ fontSize: '1.75rem' }}
+              className="inline-flex shrink-0 items-center justify-center border-0 bg-transparent p-1 text-3xl transition-transform hover:scale-110"
               onClick={() => toggleWatchlist(movie)}
               aria-label={fav ? 'Remove from watchlist' : 'Add to watchlist'}
               title={fav ? 'Remove from watchlist' : 'Add to watchlist'}
@@ -126,23 +115,23 @@ export const MovieDetails = () => {
             </button>
           </div>
 
-          <span className="movie-details-date">{movie.release_date || 'Sep 25, 2017'}</span>
+          <span className="mb-3 text-sm text-gray-500">{movie.release_date || 'Sep 25, 2017'}</span>
 
           {/* Large Stars matching Figma */}
-          <div className="star-rating-row">
-            <span className="stars">{renderStars(movie.vote_average)}</span>
-            <span className="vote-number">{voteCount.toLocaleString()}</span>
+          <div className="mb-[18px] flex items-center gap-2.5">
+            <span className="text-[1.65rem] leading-none tracking-[4px] text-gray-900">{renderStars(movie.vote_average)}</span>
+            <span className="text-base font-medium text-gray-500">{voteCount.toLocaleString()}</span>
           </div>
 
-          <p className="movie-details-overview">
+          <p className="mb-6 text-[0.95rem] leading-relaxed text-gray-700">
             {movie.overview || 'No overview available for this movie.'}
           </p>
 
           {/* Genre Pills */}
           {movie.genres && movie.genres.length > 0 && (
-            <div className="genre-pills">
+            <div className="mb-6 flex flex-wrap gap-3">
               {movie.genres.map((genre) => (
-                <span key={genre.id} className="genre-pill">
+                <span key={genre.id} className="rounded-full bg-[#fee135] px-5 py-1.5 text-[0.85rem] font-semibold text-black">
                   {genre.name}
                 </span>
               ))}
@@ -150,7 +139,7 @@ export const MovieDetails = () => {
           )}
 
           {/* Meta: Duration and Languages */}
-          <div className="meta-row">
+          <div className="mb-6 flex flex-wrap items-center gap-x-8 gap-y-2 text-[0.9rem] text-gray-900">
             {movie.runtime > 0 && (
               <span>
                 <strong>Duration:</strong> {movie.runtime} Min.
@@ -163,18 +152,18 @@ export const MovieDetails = () => {
 
           {/* Production Companies */}
           {movie.production_companies && movie.production_companies.length > 0 && (
-            <div className="production-logos">
+            <div className="mb-6 flex flex-wrap items-center gap-4">
               {movie.production_companies.map((comp) =>
                 comp.logo_path ? (
                   <img
                     key={comp.id}
                     src={`https://image.tmdb.org/t/p/w200${comp.logo_path}`}
                     alt={comp.name}
-                    className="production-logo"
+                    className="max-h-8 max-w-[120px] object-contain"
                     title={comp.name}
                   />
                 ) : (
-                  <span key={comp.id} className="production-text">
+                  <span key={comp.id} className="border border-black px-2.5 py-1 text-[0.95rem] font-bold tracking-wide text-black">
                     {comp.name}
                   </span>
                 )
@@ -188,7 +177,7 @@ export const MovieDetails = () => {
               href={movie.homepage}
               target="_blank"
               rel="noopener noreferrer"
-              className="website-btn"
+              className="inline-flex w-fit items-center gap-1.5 rounded-full border border-gray-200 bg-white px-[18px] py-1.5 text-[0.85rem] font-medium text-gray-900 transition-colors hover:border-gray-400 hover:bg-gray-50"
             >
               Website 🔗
             </a>
@@ -197,20 +186,20 @@ export const MovieDetails = () => {
       </div>
 
       {/* Break / Divider between Details Hero and Recommendations */}
-      <hr className="details-divider" />
+      <hr className="my-10 h-px w-full border-0 bg-gray-200 min-[551px]:mt-12" />
 
       {/* Recommendations Section */}
       {recommendations.length > 0 && (
         <section>
-          <h2 className="section-title">Recommendations</h2>
-          <div className="movies-grid">
+          <h2 className="mb-6 text-2xl font-bold text-gray-900">Recommendations</h2>
+          <div className="mb-10 grid w-full grid-cols-2 gap-x-2.5 gap-y-4 min-[551px]:grid-cols-3 min-[801px]:grid-cols-4 min-[1101px]:grid-cols-6 min-[551px]:gap-x-4 min-[551px]:gap-y-6">
             {recommendations.slice(0, 6).map((rec) => (
               <MovieCard key={rec.id} movie={rec} />
             ))}
           </div>
         </section>
       )}
-    </div>
+    </main>
   );
 };
 

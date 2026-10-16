@@ -1,5 +1,8 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 
+/* Context modules intentionally export both their provider and consumer hook. */
+/* eslint-disable react-refresh/only-export-components */
+
 const WatchlistContext = createContext();
 
 export function WatchlistProvider({ children }) {
