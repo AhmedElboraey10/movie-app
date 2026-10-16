@@ -19,15 +19,23 @@ const MovieRating = ({ movie }) => {
     if (!movie.vote_count) return null;
 
     const rating = Math.round(movie.vote_average * 10);
+    const ratingColor =
+        rating < 40
+            ? '#ef4444'
+            : rating < 60
+              ? '#f97316'
+              : rating < 75
+                ? '#eab308'
+                : '#00dc89';
 
     return (
         <span
             role="img"
             aria-label={`TMDB rating ${rating}%`}
-            className="absolute bottom-2 left-2 z-10 grid size-8 place-items-center rounded-full p-0.5 shadow-md"
-            style={{ background: `conic-gradient(#00dc89 ${rating}%, #3f4b53 0)` }}
+            className="absolute bottom-5 left-3 z-20 grid size-10 place-items-center rounded-full p-[3px] shadow-lg"
+            style={{ background: `conic-gradient(${ratingColor} ${rating}%, #3f4b53 0)` }}
         >
-            <span className="grid size-full place-items-center rounded-full bg-[#101820] text-[9px] font-extrabold leading-none text-white">
+            <span className="grid size-full place-items-center rounded-full bg-[#101820] text-[10px] font-extrabold leading-none text-white">
                 {rating}%
             </span>
         </span>
@@ -49,20 +57,22 @@ export const MovieCard = ({ movie, isHorizontal }) => {
 
     if (isHorizontal) {
         return (
-            <article className="flex h-56 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md">
-                <Link to={`/movie/${movie.id}`} className="relative w-40 shrink-0">
-                    <img
-                        src={posterSrc}
-                        alt={movie.title || 'Movie poster'}
-                        className="h-full w-full object-cover"
-                        onError={(event) => {
-                            event.currentTarget.onerror = null;
-                            event.currentTarget.src = fallbackPoster;
-                        }}
-                    />
+            <article className="flex h-56 rounded-2xl border border-gray-100 bg-white shadow-md">
+                <Link to={`/movie/${movie.id}`} className="relative h-full w-40 shrink-0">
+                    <div className="absolute inset-0 overflow-hidden rounded-l-2xl">
+                        <img
+                            src={posterSrc}
+                            alt={movie.title || 'Movie poster'}
+                            className="h-full w-full object-cover"
+                            onError={(event) => {
+                                event.currentTarget.onerror = null;
+                                event.currentTarget.src = fallbackPoster;
+                            }}
+                        />
+                    </div>
                     <MovieRating movie={movie} />
                 </Link>
-                <div className="flex min-w-0 flex-1 flex-col p-5">
+                <div className="flex min-w-0 flex-1 flex-col rounded-r-2xl p-5">
                     <div className="mb-1.5 flex items-start justify-between gap-3">
                         <Link to={`/movie/${movie.id}`} className="min-w-0 text-gray-900">
                             <h3 className="truncate text-2xl font-bold">{movie.title}</h3>
@@ -100,26 +110,28 @@ export const MovieCard = ({ movie, isHorizontal }) => {
 
     return (
         <article className="flex w-full min-w-0 flex-col transition-transform duration-200 hover:-translate-y-1">
-            <div className="group relative mb-2.5 aspect-2/3 w-full cursor-default overflow-hidden rounded-xl bg-gray-200 shadow-sm transition duration-300 hover:shadow-lg">
-                <img
-                    src={posterSrc}
-                    alt={movie.title || 'Movie poster'}
-                    loading="lazy"
-                    className="absolute inset-0 block h-full w-full cursor-default object-cover transition-transform duration-300 group-hover:scale-105"
-                    onError={(event) => {
-                        event.currentTarget.onerror = null;
-                        event.currentTarget.src = fallbackPoster;
-                    }}
-                />
+            <div className="group relative mb-7 aspect-2/3 w-full cursor-default rounded-xl shadow-sm transition duration-300 hover:shadow-lg">
+                <div className="absolute inset-0 overflow-hidden rounded-xl bg-gray-200">
+                    <img
+                        src={posterSrc}
+                        alt={movie.title || 'Movie poster'}
+                        loading="lazy"
+                        className="block h-full w-full cursor-default object-cover transition-transform duration-300 group-hover:scale-105"
+                        onError={(event) => {
+                            event.currentTarget.onerror = null;
+                            event.currentTarget.src = fallbackPoster;
+                        }}
+                    />
+                    <button
+                        type="button"
+                        aria-label={`View details for ${movie.title || 'this movie'}`}
+                        className="absolute right-2 top-2 z-10 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border-0 bg-white/40 text-xs font-bold leading-none text-white backdrop-blur"
+                        onClick={() => navigate(`/movie/${movie.id}`)}
+                    >
+                        {'\u2022\u2022\u2022'}
+                    </button>
+                </div>
                 <MovieRating movie={movie} />
-                <button
-                    type="button"
-                    aria-label={`View details for ${movie.title || 'this movie'}`}
-                    className="absolute right-2 top-2 z-10 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border-0 bg-white/40 text-xs font-bold leading-none text-white backdrop-blur"
-                    onClick={() => navigate(`/movie/${movie.id}`)}
-                >
-                    {'\u2022\u2022\u2022'}
-                </button>
             </div>
             <div className="flex w-full min-w-0 flex-col">
                 <Link to={`/movie/${movie.id}`} className="block w-full min-w-0 text-inherit">
