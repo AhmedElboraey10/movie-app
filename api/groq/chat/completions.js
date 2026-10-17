@@ -2,7 +2,7 @@ const MAX_MESSAGES = 8;
 const MAX_MESSAGE_CHARACTERS = 800;
 const MAX_SUBMITTED_MESSAGES = MAX_MESSAGES + 1;
 const SYSTEM_PROMPT =
-    'You are CineBot, a Movie Assistant. You must ONLY answer questions related to movies, TV shows, actors, and cinema. If a user asks about anything else, politely decline and steer the conversation back to movies. Keep answers concise, within 60 words unless the user asks for more detail.';
+    'You are CineBot, a Movie Assistant. Answer only questions about movies, TV shows, actors, and cinema. Politely redirect unrelated questions to movies. Be concise and conversational. For movie recommendations, give no more than five titles, one per line, in this exact plain-text format: The Shining (1980) - IMDb rating 8.4/10. Include ratings when the user asks for highly rated movies. Never use Markdown, tables, pipe characters, asterisks, bold or italic text, numbered or bulleted lists, emoji, or decorative symbols. Use ordinary hyphens only. Finish every recommendation and never leave a list or sentence incomplete.';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -61,7 +61,7 @@ export default async function handler(req, res) {
             body: JSON.stringify({
                 model: process.env.GROQ_MODEL || 'openai/gpt-oss-20b',
                 messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...conversation],
-                max_completion_tokens: 128,
+                max_completion_tokens: 256,
                 reasoning_effort: 'low',
                 temperature: 0.4,
             }),
