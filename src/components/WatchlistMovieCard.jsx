@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import { useApp } from '../context/AppContext';
-import { MovieRating } from './MovieRating';
-import { formatDate, getPosterSrc } from './movieCardUtils';
+import { useWatchlist } from '../context/WatchlistContext';
+import { formatDate } from '../utils/formatDate';
+import { getPosterSrc } from '../utils/getPosterSrc';
+import { getRatingStars } from '../utils/getRatingStars';
 
 export const WatchlistMovieCard = ({ movie }) => {
-    const { toggleWatchlist, isInWatchlist } = useApp();
+    const { toggleWatchlist, isInWatchlist } = useWatchlist();
     const isFavoriteMovie = isInWatchlist(movie.id);
 
     return (
@@ -14,7 +15,6 @@ export const WatchlistMovieCard = ({ movie }) => {
                 <div className="absolute inset-0 overflow-hidden rounded-l-2xl">
                     <img src={getPosterSrc(movie)} className="h-full w-full object-cover" />
                 </div>
-                <MovieRating movie={movie} />
             </Link>
             <div className="flex min-w-0 flex-1 flex-col rounded-r-2xl p-5">
                 <div className="mb-1.5 flex items-start justify-between gap-3">
@@ -22,7 +22,6 @@ export const WatchlistMovieCard = ({ movie }) => {
                         <h3 className="truncate text-2xl font-bold">{movie.title}</h3>
                     </Link>
                     <button
-                        type="button"
                         onClick={() => toggleWatchlist(movie)}
                         className="shrink-0 cursor-pointer border-0 bg-transparent p-0"
                     >
@@ -37,7 +36,9 @@ export const WatchlistMovieCard = ({ movie }) => {
                     {formatDate(movie.release_date)}
                 </span>
                 <div className="mb-3 flex items-center gap-1.5">
-                    <span className="text-base text-gray-900">{'\u2605\u2605\u2605\u2605\u2605'}</span>
+                    <span className="text-base text-gray-900">
+                        {getRatingStars(movie.vote_average)}
+                    </span>
                     <span className="text-xs font-medium text-gray-600">{movie.vote_count}</span>
                 </div>
                 <p className="line-clamp-3 text-sm leading-5 text-gray-700">

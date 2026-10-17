@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HomeMovieCard } from '../components/HomeMovieCard';
+import { MovieCard } from '../components/MovieCard';
 import { getNowPlayingMovies } from '../services/tmdbService';
 
 export const HomePage = () => {
@@ -66,7 +66,6 @@ export const HomePage = () => {
                         className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-white px-5 py-3 text-base text-gray-900 outline-none focus:border-gray-400"
                     />
                     <button
-                        type="submit"
                         className="shrink-0 rounded-lg bg-[#fee135] px-9 py-3 text-base font-semibold text-black transition-colors hover:bg-[#fcd700]"
                     >
                         Search
@@ -91,12 +90,11 @@ export const HomePage = () => {
                 <>
                     <div className="mb-10 grid w-full grid-cols-2 gap-x-2.5 gap-y-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-x-4 sm:gap-y-6">
                         {movies.map((movie) => (
-                            <HomeMovieCard key={movie.id} movie={movie} />
+                            <MovieCard key={movie.id} movie={movie} />
                         ))}
                     </div>
                     <div className="my-8 flex w-full items-center justify-center gap-2">
                         <button
-                            type="button"
                             className="flex h-8 min-w-8 items-center justify-center rounded-md border-0 bg-transparent px-1.5 text-sm font-medium text-gray-900 transition-colors hover:not-disabled:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-35"
                             onClick={() => handlePageChange(currentPage - 1)}
                             disabled={currentPage === 1}
@@ -106,7 +104,6 @@ export const HomePage = () => {
                         {pageStart > 1 && (
                             <>
                                 <button
-                                    type="button"
                                     className="flex h-8 min-w-8 items-center justify-center rounded-md border-0 bg-transparent px-1.5 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100"
                                     onClick={() => handlePageChange(1)}
                                 >
@@ -118,7 +115,6 @@ export const HomePage = () => {
                         {visiblePages.map((pageNum) => (
                             <button
                                 key={pageNum}
-                                type="button"
                                 className={`flex h-8 min-w-8 items-center justify-center rounded-md border-0 px-1.5 text-sm transition-colors ${currentPage === pageNum ? 'bg-[#fee135] font-bold text-black' : 'bg-transparent font-medium text-gray-900 hover:bg-gray-100'}`}
                                 onClick={() => handlePageChange(pageNum)}
                             >
@@ -131,7 +127,6 @@ export const HomePage = () => {
                                     <span className="px-1 text-gray-500">...</span>
                                 )}
                                 <button
-                                    type="button"
                                     className="flex h-8 min-w-8 items-center justify-center rounded-md border-0 bg-transparent px-1.5 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100"
                                     onClick={() => handlePageChange(totalPages)}
                                 >
@@ -140,7 +135,6 @@ export const HomePage = () => {
                             </>
                         )}
                         <button
-                            type="button"
                             className="flex h-8 min-w-8 items-center justify-center rounded-md border-0 bg-transparent px-1.5 text-sm font-medium text-gray-900 transition-colors hover:not-disabled:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-35"
                             onClick={() => handlePageChange(currentPage + 1)}
                             disabled={currentPage === totalPages}

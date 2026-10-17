@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import { useApp } from '../context/AppContext';
-import { RecommendationMovieCard } from '../components/RecommendationMovieCard';
+import { useWatchlist } from '../context/WatchlistContext';
+import { MovieCard } from '../components/MovieCard';
 import { getMovieDetails, getMovieRecommendations } from '../services/tmdbService';
+import { getRatingStars } from '../utils/getRatingStars';
 
 export const MovieDetails = () => {
     const { id } = useParams();
@@ -12,7 +13,7 @@ export const MovieDetails = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const { toggleWatchlist, isInWatchlist } = useApp();
+    const { toggleWatchlist, isInWatchlist } = useWatchlist();
     const fav = movie ? isInWatchlist(movie.id) : false;
     const fallbackPoster = 'https://placehold.co/500x750/f3f4f6/9ca3af?text=No+Poster';
 
@@ -37,11 +38,6 @@ export const MovieDetails = () => {
         fetchDetails();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [id]);
-
-    const renderStars = (voteAverage) => {
-        const ratingOutOfFive = Math.round(voteAverage / 2);
-        return '\u2605'.repeat(ratingOutOfFive) + '\u2606'.repeat(5 - ratingOutOfFive);
-    };
 
     if (loading) {
         return (
@@ -90,7 +86,6 @@ export const MovieDetails = () => {
                             {movie.title}
                         </h1>
                         <button
-                            type="button"
                             className="inline-flex shrink-0 items-center justify-center border-0 bg-transparent p-1 text-3xl transition-transform hover:scale-110"
                             onClick={() => toggleWatchlist(movie)}
                             title={fav ? 'Remove from watchlist' : 'Add to watchlist'}
@@ -107,7 +102,7 @@ export const MovieDetails = () => {
                     <span className="mb-3 text-sm text-gray-500">{movie.release_date}</span>
                     <div className="mb-4 flex items-center gap-2.5">
                         <span className="text-2xl leading-none tracking-widest text-gray-900">
-                            {renderStars(movie.vote_average)}
+                            {getRatingStars(movie.vote_average)}
                         </span>
                         <span className="text-base font-medium text-gray-500">
                             {movie.vote_count.toLocaleString()}
@@ -178,7 +173,7 @@ export const MovieDetails = () => {
                     <h2 className="mb-6 text-2xl font-bold text-gray-900">Recommendations</h2>
                     <div className="mb-10 grid w-full grid-cols-2 gap-x-2.5 gap-y-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-x-4 sm:gap-y-6">
                         {recommendations.slice(0, 6).map((rec) => (
-                            <RecommendationMovieCard key={rec.id} movie={rec} />
+                            <MovieCard key={rec.id} movie={rec} />
                         ))}
                     </div>
                 </section>

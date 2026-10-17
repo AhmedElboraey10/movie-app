@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { createChatCompletion } from '../services/groqService';
 
 const GROQ_MODEL = import.meta.env.VITE_GROQ_MODEL || 'openai/gpt-oss-20b';
@@ -75,11 +73,9 @@ export const ChatbotPage = () => {
                     {messages.map((message, idx) => (
                         <div
                             key={`${message.role}-${idx}`}
-                            className={`markdown-content max-w-11/12 wrap-break-word rounded-2xl px-3.5 py-2.5 text-base leading-6 sm:max-w-3/4 ${message.role === 'user' ? 'self-end rounded-br bg-[#1674ea] text-white' : 'self-start rounded-bl bg-[#eef2f7] text-gray-800'}`}
+                            className={`max-w-11/12 wrap-break-word rounded-2xl px-3.5 py-2.5 text-base leading-6 sm:max-w-3/4 ${message.role === 'user' ? 'self-end rounded-br bg-[#1674ea] text-white' : 'self-start rounded-bl bg-[#eef2f7] text-gray-800'}`}
                         >
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                {message.content}
-                            </ReactMarkdown>
+                            {message.content}
                         </div>
                     ))}
 
@@ -113,7 +109,6 @@ export const ChatbotPage = () => {
                         className="min-w-0 flex-1 rounded-xl border border-gray-200 px-3.5 py-3 text-base text-gray-900 outline-none focus:border-gray-400"
                     />
                     <button
-                        type="submit"
                         disabled={isLoading || !inputValue.trim()}
                         className="rounded-xl bg-[#fee135] px-4 font-semibold text-black transition-colors hover:enabled:bg-[#fcd700] disabled:cursor-not-allowed disabled:opacity-60 sm:px-4"
                     >

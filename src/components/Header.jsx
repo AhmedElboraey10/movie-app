@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useWatchlist } from '../context/WatchlistContext';
 
 export const Header = () => {
-    const { watchlist } = useApp();
+    const { watchlist } = useWatchlist();
     const count = watchlist.length;
 
     return (
