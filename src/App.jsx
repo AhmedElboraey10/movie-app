@@ -6,6 +6,7 @@ import { HomePage } from './pages/HomePage';
 import { SearchResultsPage } from './pages/SearchResultspage';
 import { MovieDetails } from './pages/MovieDetails';
 import ChatbotPage from './pages/ChatbotPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const App = () => {
     return (
@@ -18,7 +19,7 @@ const App = () => {
                     <Route path="/movie/:id" element={<MovieDetails />} />
                     <Route path="/watchlist" element={<WatchlistPage />} />
                     <Route path="/assistant" element={<ChatbotPage />} />
-                    <Route path="*" element={<HomePage />} />
+                    <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </Router>
         </WatchlistProvider>
