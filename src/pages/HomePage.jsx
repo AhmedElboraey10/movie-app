@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MovieCard } from '../components/MovieCard';
+import { HomeMovieCard } from '../components/HomeMovieCard';
 import { getNowPlayingMovies } from '../services/tmdbService';
 
 export const HomePage = () => {
@@ -91,7 +91,7 @@ export const HomePage = () => {
                 <>
                     <div className="mb-10 grid w-full grid-cols-2 gap-x-2.5 gap-y-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-x-4 sm:gap-y-6">
                         {movies.map((movie) => (
-                            <MovieCard key={movie.id} movie={movie} />
+                            <HomeMovieCard key={movie.id} movie={movie} />
                         ))}
                     </div>
                     <div className="my-8 flex w-full items-center justify-center gap-2">

@@ -15,11 +15,9 @@ export const Header = () => {
                 <Link
                     to="/assistant"
                     className="inline-flex items-center justify-center text-black"
-                    aria-label="Open Movie Assistant"
                 >
                     <img
                         src="/bot.png"
-                        alt="Movie assistant"
                         className="block h-7 w-7 shrink-0 object-contain"
                     />
                 </Link>
@@ -27,7 +25,7 @@ export const Header = () => {
                     to="/watchlist"
                     className="inline-flex items-center gap-2 text-base font-semibold text-black"
                 >
-                    <Heart className="size-6 shrink-0 fill-current" aria-hidden="true" />
+                    <Heart className="size-6 shrink-0 fill-current" />
                     <span className="sm:hidden">watchlist</span>
                     {count > 0 && (
                         <span className="ml-0.5 rounded border border-black bg-white px-1.5 py-0.5 text-xs font-bold text-black">

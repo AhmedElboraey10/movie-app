@@ -1,7 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 
-/* eslint-disable react-refresh/only-export-components */
-
 const WatchlistContext = createContext(null);
 
 export function WatchlistProvider({ children }) {

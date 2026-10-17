@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { MovieCard } from '../components/MovieCard';
+import { RecommendationMovieCard } from '../components/RecommendationMovieCard';
 import { getMovieDetails, getMovieRecommendations } from '../services/tmdbService';
 
 export const MovieDetails = () => {
@@ -80,12 +80,7 @@ export const MovieDetails = () => {
                 <div className="w-60 shrink-0 overflow-hidden rounded-2xl bg-gray-100 shadow-[0_8px_24px_rgba(0,0,0,0.12)] lg:w-80">
                     <img
                         src={posterSrc}
-                        alt={movie.title}
                         className="block h-auto w-full"
-                        onError={(e) => {
-                            e.currentTarget.onerror = null;
-                            e.currentTarget.src = fallbackPoster;
-                        }}
                     />
                 </div>
 
@@ -98,7 +93,6 @@ export const MovieDetails = () => {
                             type="button"
                             className="inline-flex shrink-0 items-center justify-center border-0 bg-transparent p-1 text-3xl transition-transform hover:scale-110"
                             onClick={() => toggleWatchlist(movie)}
-                            aria-label={fav ? 'Remove from watchlist' : 'Add to watchlist'}
                             title={fav ? 'Remove from watchlist' : 'Add to watchlist'}
                         >
                             <Heart
@@ -106,7 +100,6 @@ export const MovieDetails = () => {
                                 fill={fav ? '#FEE135' : 'none'}
                                 stroke={fav ? '#FEE135' : '#111827'}
                                 strokeWidth={2}
-                                aria-hidden="true"
                             />
                         </button>
                     </div>
@@ -153,7 +146,6 @@ export const MovieDetails = () => {
                                     <img
                                         key={comp.id}
                                         src={`https://image.tmdb.org/t/p/w200${comp.logo_path}`}
-                                        alt={comp.name}
                                         className="max-h-8 max-w-30 object-contain"
                                         title={comp.name}
                                     />
@@ -186,7 +178,7 @@ export const MovieDetails = () => {
                     <h2 className="mb-6 text-2xl font-bold text-gray-900">Recommendations</h2>
                     <div className="mb-10 grid w-full grid-cols-2 gap-x-2.5 gap-y-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-x-4 sm:gap-y-6">
                         {recommendations.slice(0, 6).map((rec) => (
-                            <MovieCard key={rec.id} movie={rec} />
+                            <RecommendationMovieCard key={rec.id} movie={rec} />
                         ))}
                     </div>
                 </section>

@@ -1,5 +1,5 @@
 import { useWatchlist } from '../context/WatchlistContext';
-import { MovieCard } from '../components/MovieCard';
+import { WatchlistMovieCard } from '../components/WatchlistMovieCard';
 import { Link } from 'react-router-dom';
 import { HeartCrack } from 'lucide-react';
 
@@ -12,7 +12,7 @@ function WatchlistPage() {
 
             {watchlist.length === 0 ? (
                 <div className="mt-5 flex flex-col items-center justify-center">
-                    <HeartCrack size={140} color="#d1d5db" className="mb-6" aria-hidden="true" />
+                    <HeartCrack size={140} color="#d1d5db" className="mb-6" />
 
                     <h2 className="mb-7 text-2xl font-medium text-black">
                         No Movies in watch list
@@ -28,11 +28,7 @@ function WatchlistPage() {
             ) : (
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     {watchlist.map((item) => (
-                        <MovieCard
-                            key={item.id}
-                            movie={item}
-                            isHorizontal={true}
-                        />
+                        <WatchlistMovieCard key={item.id} movie={item} />
                     ))}
                 </div>
             )}

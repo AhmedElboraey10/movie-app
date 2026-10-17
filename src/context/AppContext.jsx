@@ -1,8 +1,6 @@
 import { createContext, useContext } from 'react';
 import { useWatchlist } from './WatchlistContext';
 
-/* eslint-disable react-refresh/only-export-components */
-
 const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {

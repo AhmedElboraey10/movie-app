@@ -71,7 +71,6 @@ export const ChatbotPage = () => {
             <div className="flex h-[calc(100vh-10.625rem)] min-h-105 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-linear-to-b from-[#fafafa] to-white sm:h-[calc(100vh-13.125rem)] sm:min-h-115">
                 <div
                     className="flex flex-1 flex-col gap-3 overflow-y-auto p-3.5 sm:p-4.5"
-                    aria-live="polite"
                 >
                     {messages.map((message, idx) => (
                         <div
@@ -87,7 +86,6 @@ export const ChatbotPage = () => {
                     {isLoading && (
                         <div
                             className="inline-flex items-center gap-1.5 self-start rounded-bl-sm rounded-2xl bg-[#eef2f7] px-3.5 py-2.5"
-                            aria-label="Assistant is typing"
                         >
                             <span className="size-2 animate-[typing-pulse_1.2s_ease-in-out_infinite] rounded-full bg-gray-500" />
                             <span className="size-2 animate-[typing-pulse_1.2s_ease-in-out_0.15s_infinite] rounded-full bg-gray-500" />
@@ -111,7 +109,6 @@ export const ChatbotPage = () => {
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         placeholder="Ask about movies, actors, directors, or TV shows..."
-                        aria-label="Chat message"
                         maxLength={MAX_INPUT_CHARACTERS}
                         className="min-w-0 flex-1 rounded-xl border border-gray-200 px-3.5 py-3 text-base text-gray-900 outline-none focus:border-gray-400"
                     />

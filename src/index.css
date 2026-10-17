@@ -22,8 +22,6 @@ body {
     min-height: 100vh;
 }
 
-/* ReactMarkdown renders these nested structures dynamically, so descendant
-   selectors are clearer here than repeating utilities on every markdown node. */
 .markdown-content p + p,
 .markdown-content p + ul,
 .markdown-content p + ol,

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { MovieCard } from '../components/MovieCard';
+import { HomeMovieCard } from '../components/HomeMovieCard';
 import { searchMovies } from '../services/tmdbService';
 
 export const SearchResultsPage = () => {
@@ -105,7 +105,7 @@ export const SearchResultsPage = () => {
                         <>
                             <div className="mb-10 grid w-full grid-cols-2 gap-x-2.5 gap-y-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-x-4 sm:gap-y-6">
                                 {results.map((movie) => (
-                                    <MovieCard key={movie.id} movie={movie} />
+                                    <HomeMovieCard key={movie.id} movie={movie} />
                                 ))}
                             </div>
 
