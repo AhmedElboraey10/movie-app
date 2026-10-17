@@ -2,9 +2,11 @@ import axios from 'axios';
 
 const tmdbClient = axios.create({ baseURL: '/api/tmdb' });
 
-const request = async (path, params = {}) => {
+const request = async (resource, params = {}) => {
     try {
-        const { data } = await tmdbClient.get(path, { params });
+        const { data } = await tmdbClient.get('', {
+            params: { resource, ...params },
+        });
         return data;
     } catch (error) {
         const status = error.response?.status;
@@ -16,17 +18,17 @@ const request = async (path, params = {}) => {
 };
 
 export const getNowPlayingMovies = (page = 1) => {
-    return request('/movie/now_playing', { page });
+    return request('now-playing', { page });
 };
 
 export const searchMovies = (query, page = 1) => {
-    return request('/search/movie', { query, page });
+    return request('search', { query, page });
 };
 
 export const getMovieDetails = (movieId) => {
-    return request(`/movie/${movieId}`);
+    return request('details', { movieId });
 };
 
 export const getMovieRecommendations = (movieId) => {
-    return request(`/movie/${movieId}/recommendations`);
+    return request('recommendations', { movieId });
 };

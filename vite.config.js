@@ -24,7 +24,32 @@ export default defineConfig(({ mode }) => {
                 '/api/tmdb': {
                     target: 'https://api.themoviedb.org/3',
                     changeOrigin: true,
-                    rewrite: (path) => path.replace(/^\/api\/tmdb/, ''),
+                    rewrite: (path) => {
+                        const url = new URL(path, 'http://localhost');
+                        const resource = url.searchParams.get('resource');
+                        const movieId = url.searchParams.get('movieId');
+                        let endpoint;
+
+                        if (resource === 'now-playing') {
+                            endpoint = '/movie/now_playing';
+                        } else if (resource === 'search') {
+                            endpoint = '/search/movie';
+                        } else if (resource === 'details' && /^\d+$/.test(movieId || '')) {
+                            endpoint = `/movie/${movieId}`;
+                        } else if (
+                            resource === 'recommendations' &&
+                            /^\d+$/.test(movieId || '')
+                        ) {
+                            endpoint = `/movie/${movieId}/recommendations`;
+                        } else {
+                            return '/invalid-request';
+                        }
+
+                        url.searchParams.delete('resource');
+                        url.searchParams.delete('movieId');
+                        const query = url.searchParams.toString();
+                        return `${endpoint}${query ? `?${query}` : ''}`;
+                    },
                     headers: env.TMDB_API_READ_ACCESS_TOKEN
                         ? { Authorization: `Bearer ${env.TMDB_API_READ_ACCESS_TOKEN}` }
                         : {},
