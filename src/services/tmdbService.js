@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const tmdbClient = axios.create({ baseURL: '/api/tmdb' });
+const tmdbClient = axios.create({
+    baseURL: import.meta.env.DEV ? '/tmdb-api' : '/api/tmdb',
+});
 
 const request = async (resource, params = {}) => {
     try {

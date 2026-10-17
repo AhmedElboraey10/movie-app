@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
                         ? { Authorization: `Bearer ${env.GROQ_API_KEY}` }
                         : {},
                 },
-                '/api/tmdb': {
+                '/tmdb-api': {
                     target: 'https://api.themoviedb.org/3',
                     changeOrigin: true,
                     rewrite: (path) => {
