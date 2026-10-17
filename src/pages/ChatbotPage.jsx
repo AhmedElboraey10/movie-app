@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createChatCompletion } from '../services/groqService';
 
-const GROQ_MODEL = import.meta.env.VITE_GROQ_MODEL || 'openai/gpt-oss-20b';
 const MAX_HISTORY_MESSAGES = 8;
-const MAX_COMPLETION_TOKENS = 128;
 const MAX_INPUT_CHARACTERS = 800;
 const SYSTEM_PROMPT =
     'You are CineBot, a Movie Assistant. You must ONLY answer questions related to movies, TV shows, actors, and cinema. If a user asks about anything else, politely decline and steer the conversation back to movies. Keep answers concise, within 60 words unless the user asks for more detail.';
@@ -37,12 +35,11 @@ export const ChatbotPage = () => {
 
         try {
             const data = await createChatCompletion({
-                model: GROQ_MODEL,
                 messages: [
                     { role: 'system', content: SYSTEM_PROMPT },
                     ...updatedMessages.slice(-MAX_HISTORY_MESSAGES),
                 ],
-                max_completion_tokens: MAX_COMPLETION_TOKENS,
+                max_completion_tokens: 128,
                 reasoning_effort: 'low',
                 temperature: 0.4,
             });

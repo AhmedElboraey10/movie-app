@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const GROQ_ENDPOINT = '/groq-api/chat/completions';
+const GROQ_ENDPOINT = '/api/groq/chat/completions';
 
 export const createChatCompletion = async (payload) => {
     try {
