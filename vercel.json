@@ -1,22 +1,6 @@
 {
     "rewrites": [
         {
-            "source": "/search",
-            "destination": "/index.html"
-        },
-        {
-            "source": "/movie/:id",
-            "destination": "/index.html"
-        },
-        {
-            "source": "/watchlist",
-            "destination": "/index.html"
-        },
-        {
-            "source": "/assistant",
-            "destination": "/index.html"
-        },
-        {
             "source": "/:path((?!api/).*)",
             "destination": "/index.html"
         }
