@@ -19,6 +19,9 @@ Do not add the API credentials with a `VITE_` prefix. The `/api/tmdb` and
 `/api/groq/chat/completions` functions use them on the server. Redeploy after
 adding or changing environment variables.
 
+The Vercel rewrites in `vercel.json` serve the React app for direct visits and
+refreshes on its client-side routes.
+
 For local development, put the same variable names in `.env.local`. The Vite
 development proxy uses them without adding the credentials to the browser bundle.
 
