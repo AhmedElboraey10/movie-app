@@ -68,14 +68,6 @@ The complete UI design is available on Figma: [View Design File](https://www.fig
 | `/assistant` | CineBot chat |
 | Any other path | Custom not-found page |
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js v20.19+ or v22.12+ (required by Vite 8) and npm
-- A TMDB API Read Access Token — [themoviedb.org](https://www.themoviedb.org/settings/api)
-- A Groq API key — [console.groq.com](https://console.groq.com/keys)
-
 ## What I Built and Practiced
 
 **React & state management**
@@ -94,6 +86,14 @@ The complete UI design is available on Figma: [View Design File](https://www.fig
 - Same-origin requests only; credentials injected server-side (Vercel functions / Vite dev proxy).
 - Server-side validation of resources, IDs, pagination, queries, and chat payloads with role-specific character limits for user and assistant messages.
 - Status-aware error mapping for the assistant (400, 429, network failures) into clear user-facing messages.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js v20.19+ or v22.12+ (required by Vite 8) and npm
+- A TMDB API Read Access Token — [themoviedb.org](https://www.themoviedb.org/settings/api)
+- A Groq API key — [console.groq.com](https://console.groq.com/keys)
 - Parallel fetching with `Promise.all` plus graceful fallbacks (e.g. recommendations).
 
 **UI engineering & tooling**
