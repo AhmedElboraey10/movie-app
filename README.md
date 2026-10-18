@@ -16,6 +16,11 @@ A movie discovery platform built with React 19 and Vite, powered by live TMDB da
 | **Watchlist — saved movies** | **Not found — custom 404 page** |
 | ![Saved movies in the watchlist](images/WatchLIist.png) | ![Application not-found page](images/404.png) |
 
+<p align="center">
+  <strong>Movie Details</strong><br>
+  <img src="images/MovieDetails.png" alt="Movie details page" width="800">
+</p>
+
 ## Design
 
 The complete UI design is available on Figma: [View Design File](https://www.figma.com/design/jvGvsGLg6X3T7JPU3E2rNl/Movie-App?node-id=0-1&p=f)
