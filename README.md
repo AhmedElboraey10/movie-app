@@ -2,15 +2,11 @@
 
 A movie discovery platform built with React 19 and Vite, powered by live TMDB data and CineBot — an AI movie assistant running on Groq. Browse now-playing titles, search the full TMDB catalog, explore details and recommendations, keep a persistent watchlist, and ask the assistant anything about cinema.
 
-[![Live Demo](https://img.shields.io/badge/Visit-Live%20Demo-16834A?style=for-the-badge)](https://movie-app-navy-alpha.vercel.app/)
-[![Figma Design](https://img.shields.io/badge/Figma-Design-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/jvGvsGLg6X3T7JPU3E2rNl/Movie-App?node-id=0-1&p=f)
-
-![React](https://img.shields.io/badge/React-19.3-61DAFB?logo=react&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?logo=vite&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.3-06B6D4?logo=tailwindcss&logoColor=white)
-![React Router](https://img.shields.io/badge/React_Router-7.18-F44250?logo=reactrouter&logoColor=white)
-![TMDB](https://img.shields.io/badge/TMDB-API-01B4E4?logo=themoviedatabase&logoColor=white)
-![Groq](https://img.shields.io/badge/Groq-Chat_Completions-000000)
+<p align="center">
+  <a href="https://movie-app-navy-alpha.vercel.app/">
+    <img src="https://img.shields.io/badge/Visit%20Live%20Demo-16834A?style=for-the-badge" alt="Visit Live Demo">
+  </a>
+</p>
 
 ## Screenshots
 
