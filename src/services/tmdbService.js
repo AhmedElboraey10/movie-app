@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const tmdbClient = axios.create({
-    baseURL: import.meta.env.DEV ? '/tmdb-api' : '/api/tmdb',
+    baseURL: import.meta.env.DEV ? '/tmdb-api' : '/api/tmdb/movies',
 });
 
 const request = async (resource, params = {}) => {
