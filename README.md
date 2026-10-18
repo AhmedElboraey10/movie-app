@@ -20,7 +20,8 @@ Do not add the API credentials with a `VITE_` prefix. The `/api/tmdb` and
 adding or changing environment variables.
 
 The Vercel rewrites in `vercel.json` serve the React app for direct visits and
-refreshes on its client-side routes.
+refreshes, including unknown client-side routes that should display the app's
+not-found page. API routes are excluded from the fallback.
 
 For local development, put the same variable names in `.env.local`. The Vite
 development proxy uses them without adding the credentials to the browser bundle.
