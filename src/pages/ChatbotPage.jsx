@@ -3,8 +3,6 @@ import { createChatCompletion } from '../services/groqService';
 
 const MAX_HISTORY_MESSAGES = 8;
 const MAX_INPUT_CHARACTERS = 800;
-const SYSTEM_PROMPT =
-    'You are CineBot, a Movie Assistant. Answer only questions about movies, TV shows, actors, and cinema. Politely redirect unrelated questions to movies. Be concise and conversational. For movie recommendations, give no more than five titles, one per line, in this exact plain-text format: The Shining (1980) - IMDb rating 8.4/10. Include ratings when the user asks for highly rated movies. Never use Markdown, tables, pipe characters, asterisks, bold or italic text, numbered or bulleted lists, emoji, or decorative symbols. Use ordinary hyphens only. Finish every recommendation and never leave a list or sentence incomplete.';
 
 export const ChatbotPage = () => {
     const [messages, setMessages] = useState([]);
@@ -35,13 +33,7 @@ export const ChatbotPage = () => {
 
         try {
             const data = await createChatCompletion({
-                messages: [
-                    { role: 'system', content: SYSTEM_PROMPT },
-                    ...updatedMessages.slice(-MAX_HISTORY_MESSAGES),
-                ],
-                max_completion_tokens: 256,
-                reasoning_effort: 'low',
-                temperature: 0.4,
+                messages: updatedMessages.slice(-MAX_HISTORY_MESSAGES),
             });
 
             const resolvedReply = data.choices?.[0]?.message?.content?.trim();

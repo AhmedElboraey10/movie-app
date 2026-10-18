@@ -1,8 +1,10 @@
 const MAX_MESSAGES = 8;
-const MAX_MESSAGE_CHARACTERS = 800;
-const MAX_SUBMITTED_MESSAGES = MAX_MESSAGES + 1;
+const MAX_USER_MESSAGE_CHARACTERS = 800;
+const MAX_ASSISTANT_MESSAGE_CHARACTERS = 8000;
+const MAX_SUBMITTED_MESSAGES = MAX_MESSAGES;
+const MAX_COMPLETION_TOKENS = 1024;
 const SYSTEM_PROMPT =
-    'You are CineBot, a Movie Assistant. Answer only questions about movies, TV shows, actors, and cinema. Politely redirect unrelated questions to movies. Be concise and conversational. For movie recommendations, give no more than five titles, one per line, in this exact plain-text format: The Shining (1980) - IMDb rating 8.4/10. Include ratings when the user asks for highly rated movies. Never use Markdown, tables, pipe characters, asterisks, bold or italic text, numbered or bulleted lists, emoji, or decorative symbols. Use ordinary hyphens only. Finish every recommendation and never leave a list or sentence incomplete.';
+    'You are CineBot, a Movie Assistant. Answer only questions about movies, TV shows, actors, and cinema. Politely redirect unrelated questions to movies. Match your answer length to the request. For simple facts such as a movie rating, runtime, or genre, answer directly in one short sentence and stop; do not add unrelated background or a follow-up question. When asked for details, give enough relevant information to explain a movie, name its filmmakers or cast, recommend movies, or compare titles without filler. For recommendation lists, give up to five titles, one per plain-text line, and include ratings only when asked. Never use Markdown, tables, pipe characters, asterisks, numbered or bulleted lists, emoji, or decorative symbols. Use ordinary punctuation. Answer the most recent question directly.';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -30,17 +32,20 @@ export default async function handler(req, res) {
         }
         const { role, content } = message;
         if (
-            !['system', 'user', 'assistant'].includes(role) ||
+            !['user', 'assistant'].includes(role) ||
             typeof content !== 'string' ||
             content.trim().length === 0 ||
-            content.length > (role === 'system' ? 1000 : MAX_MESSAGE_CHARACTERS)
+            content.length >
+                (role === 'assistant'
+                    ? MAX_ASSISTANT_MESSAGE_CHARACTERS
+                    : MAX_USER_MESSAGE_CHARACTERS)
         ) {
             return null;
         }
         return { role, content: content.trim() };
     });
 
-    const conversation = validMessages.filter((message) => message?.role !== 'system');
+    const conversation = validMessages;
     if (
         validMessages.includes(null) ||
         conversation.length === 0 ||
@@ -61,7 +66,7 @@ export default async function handler(req, res) {
             body: JSON.stringify({
                 model: process.env.GROQ_MODEL || 'openai/gpt-oss-20b',
                 messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...conversation],
-                max_completion_tokens: 256,
+                max_completion_tokens: MAX_COMPLETION_TOKENS,
                 reasoning_effort: 'low',
                 temperature: 0.4,
             }),

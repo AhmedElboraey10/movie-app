@@ -8,9 +8,18 @@ export const createChatCompletion = async (payload) => {
         return data;
     } catch (error) {
         const status = error.response?.status;
-        const reason = error.response?.data?.error?.message || error.message;
-        const statusText = status ? ` (${status})` : '';
+        let message;
 
-        throw new Error(`Groq request failed${statusText}: ${reason}`, { cause: error });
+        if (status === 400) {
+            message = "I couldn't continue this chat. Please start a new conversation.";
+        } else if (status === 429) {
+            message = 'The assistant is busy right now. Please try again in a moment.';
+        } else if (!status) {
+            message = "I couldn't reach the assistant. Check your connection and try again.";
+        } else {
+            message = "The assistant couldn't reply right now. Please try again shortly.";
+        }
+
+        throw new Error(message, { cause: error });
     }
 };
