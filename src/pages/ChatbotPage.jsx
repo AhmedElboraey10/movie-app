@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { createChatCompletion } from '../services/groqService';
-import { formatAssistantResponse } from '../utils/formatAssistantResponse';
 
 const MAX_HISTORY_MESSAGES = 8;
 const MAX_INPUT_CHARACTERS = 800;
@@ -45,9 +44,7 @@ export const ChatbotPage = () => {
                 temperature: 0.4,
             });
 
-            const resolvedReply = formatAssistantResponse(
-                data.choices?.[0]?.message?.content?.trim() || '',
-            );
+            const resolvedReply = data.choices?.[0]?.message?.content?.trim();
             if (!resolvedReply) {
                 throw new Error('Groq returned an empty response.');
             }
@@ -73,7 +70,7 @@ export const ChatbotPage = () => {
                     {messages.map((message, idx) => (
                         <div
                             key={`${message.role}-${idx}`}
-                            className={`max-w-11/12 wrap-break-word rounded-2xl px-3.5 py-2.5 text-base leading-6 sm:max-w-3/4 ${message.role === 'user' ? 'self-end rounded-br bg-[#1674ea] text-white' : 'self-start whitespace-pre-line rounded-bl bg-[#eef2f7] text-gray-800'}`}
+                            className={`max-w-11/12 wrap-break-word rounded-2xl px-3.5 py-2.5 text-base leading-6 sm:max-w-3/4 ${message.role === 'user' ? 'self-end rounded-br bg-[#1674ea] text-white' : 'self-start rounded-bl bg-[#eef2f7] text-gray-800'}`}
                         >
                             {message.content}
                         </div>
