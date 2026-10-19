@@ -10,30 +10,13 @@ A movie discovery platform built with React 19 and Vite, powered by live TMDB da
 
 ## Screenshots
 
-<table>
-  <tr>
-    <th align="center">Home — now playing & search</th>
-    <th align="center">CineBot — AI movie assistant</th>
-  </tr>
-  <tr>
-    <td align="center" width="50%"><img src="images/HomePage.png" alt="Movie discovery home page" width="450"></td>
-    <td align="center" width="50%"><img src="images/AiAssistant.png" alt="CineBot assistant" width="450"></td>
-  </tr>
-  <tr>
-    <th align="center">Movie Details</th>
-    <th align="center">Watchlist — saved movies</th>
-  </tr>
-  <tr>
-    <td align="center" width="50%"><img src="images/MovieDetails.png" alt="Movie details page" width="450"></td>
-    <td align="center" width="50%"><img src="images/WatchLIist.png" alt="Saved movies in the watchlist" width="450"></td>
-  </tr>
-  <tr>
-    <th colspan="2" align="center">Not found — custom 404 page</th>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><img src="images/404.png" alt="Application not-found page" width="450"></td>
-  </tr>
-</table>
+| Home — now playing & search | CineBot — AI movie assistant |
+| :---: | :---: |
+| ![Movie discovery home page](images/HomePage.png) | ![CineBot assistant](images/AiAssistant.png) |
+| **Movie Details** | **Watchlist — saved movies** |
+| ![Movie details page](images/MovieDetails.png) | ![Saved movies in the watchlist](images/WatchLIist.png) |
+| **Not found — custom 404 page** | |
+| ![Application not-found page](images/404.png) | |
 
 ## Design
 
