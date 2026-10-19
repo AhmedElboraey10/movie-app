@@ -10,13 +10,34 @@ A movie discovery platform built with React 19 and Vite, powered by live TMDB da
 
 ## Screenshots
 
-| Home — now playing & search | Movie Details |
-| :---: | :---: |
-| ![Movie discovery home page](images/HomePage.png) | ![Movie details page](images/MovieDetails.png) |
-| **Watchlist — saved movies** | **CineBot — AI movie assistant** |
-| ![Saved movies in the watchlist](images/WatchLIist.png) | ![CineBot assistant](images/AiAssistant.png) |
-| **Not found — custom 404 page** | |
-| ![Application not-found page](images/404.png) | |
+<table>
+  <tr>
+    <th>Home — now playing &amp; search</th>
+    <th>Movie Details</th>
+  </tr>
+  <tr>
+    <td><img src="images/HomePage.png" alt="Movie discovery home page"></td>
+    <td><img src="images/MovieDetails.png" alt="Movie details page"></td>
+  </tr>
+  <tr>
+    <th>Watchlist — saved movies</th>
+    <th>CineBot — AI movie assistant</th>
+  </tr>
+  <tr>
+    <td><img src="images/WatchLIist.png" alt="Saved movies in the watchlist"></td>
+    <td><img src="images/AiAssistant.png" alt="CineBot assistant"></td>
+  </tr>
+  <tr>
+    <th colspan="2">Not found — custom 404 page</th>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <p align="center">
+        <img src="images/404.png" alt="Application not-found page" width="600">
+      </p>
+    </td>
+  </tr>
+</table>
 
 ## Design
 
