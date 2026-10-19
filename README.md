@@ -10,11 +10,11 @@ A movie discovery platform built with React 19 and Vite, powered by live TMDB da
 
 ## Screenshots
 
-| Home — now playing & search | CineBot — AI movie assistant |
+| Home — now playing & search | Movie Details |
 | :---: | :---: |
-| ![Movie discovery home page](images/HomePage.png) | ![CineBot assistant](images/AiAssistant.png) |
-| **Movie Details** | **Watchlist — saved movies** |
-| ![Movie details page](images/MovieDetails.png) | ![Saved movies in the watchlist](images/WatchLIist.png) |
+| ![Movie discovery home page](images/HomePage.png) | ![Movie details page](images/MovieDetails.png) |
+| **Watchlist — saved movies** | **CineBot — AI movie assistant** |
+| ![Saved movies in the watchlist](images/WatchLIist.png) | ![CineBot assistant](images/AiAssistant.png) |
 | **Not found — custom 404 page** | |
 | ![Application not-found page](images/404.png) | |
 
@@ -84,6 +84,13 @@ The complete UI design is available on Figma: [View Design File](https://www.fig
 - Same-origin requests only; credentials injected server-side (Vercel functions / Vite dev proxy).
 - Server-side validation of resources, IDs, pagination, queries, and chat payloads with role-specific character limits for user and assistant messages.
 - Status-aware error mapping for the assistant (400, 429, network failures) into clear user-facing messages.
+- Parallel fetching with `Promise.all` plus graceful fallbacks (e.g. recommendations).
+
+**UI engineering & tooling**
+- Responsive, mobile-first layouts with Tailwind CSS 4 utilities and custom keyframes.
+- Pure helper functions for dates, poster URLs, and star ratings.
+- React Compiler enabled via Vite's Babel pipeline; ESLint for consistent code quality.
+- Full Git/GitHub workflow and deployment to Vercel.
 
 ## Getting Started
 
@@ -92,10 +99,3 @@ The complete UI design is available on Figma: [View Design File](https://www.fig
 - Node.js v20.19+ or v22.12+ (required by Vite 8) and npm
 - A TMDB API Read Access Token — [themoviedb.org](https://www.themoviedb.org/settings/api)
 - A Groq API key — [console.groq.com](https://console.groq.com/keys)
-- Parallel fetching with `Promise.all` plus graceful fallbacks (e.g. recommendations).
-
-**UI engineering & tooling**
-- Responsive, mobile-first layouts with Tailwind CSS 4 utilities and custom keyframes.
-- Pure helper functions for dates, poster URLs, and star ratings.
-- React Compiler enabled via Vite's Babel pipeline; ESLint for consistent code quality.
-- Full Git/GitHub workflow and deployment to Vercel.
